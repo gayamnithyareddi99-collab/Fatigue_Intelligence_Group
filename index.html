@@ -1,0 +1,1869 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fatigue Intelligence Group | AI-Driven Fatigue Risk Management & Workforce Safety Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Sora:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+
+:root{
+  /* Fatigue Intelligence Group  Dark Navy + Teal + Amber */
+  --teal:#0EA5E9;
+  --teal-light:#38BDF8;
+  --teal-dim:#0284C7;
+  --teal-dark:#0369A1;
+
+  --amber:#F59E0B;
+  --amber-light:#FCD34D;
+  --amber-dim:#D97706;
+
+  /* Dark Navy Backgrounds */
+  --bg-black:#070E1C;
+  --bg-deep:#0A1428;
+  --bg-dark:#0D1B3E;
+  --bg-card:#0F2044;
+
+  /* Navy Accents */
+  --navy:#0D1B4A;
+  --navy-mid:#112260;
+  --navy-light:#1A2F80;
+  --navy-bright:#1E3A8A;
+  --blue-accent:#1E40AF;
+  --blue-soft:#3B82F6;
+  --blue-glow:rgba(14,165,233,0.08);
+
+  /* Dark surfaces */
+  --light-bg:#0A1428;
+  --light-card:#0F2044;
+  --light-border:rgba(14,165,233,0.18);
+  --text-dark:#E2E8F0;
+  --text-mid:#CBD5E1;
+  --text-muted:#94A3B8;
+
+  /* Text roles */
+  --white:#FFFFFF;
+  --txt-secondary:#CBD5E1;
+  --txt-dim:#64748B;
+
+  /* UI Cards */
+  --card-bg:#0F2044;
+  --card-border:rgba(14,165,233,0.14);
+  --navy-card:#0F2044;
+  --navy-border:rgba(14,165,233,0.18);
+
+  --nav-h:72px;
+  --max-w:1200px;
+  --font:'Plus Jakarta Sans',sans-serif;
+  --display:'Sora',sans-serif;
+  --mono:'IBM Plex Mono',monospace;
+  --ease:cubic-bezier(0.4,0,0.2,1);
+  --ease-out:cubic-bezier(0,0,0.2,1);
+}
+
+body{font-family:var(--font);color:var(--text-dark);background:var(--bg-black);overflow-x:hidden;}
+
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:var(--bg-deep);}
+::-webkit-scrollbar-thumb{background:var(--teal);border-radius:2px;}
+
+img{display:block;max-width:100%;}
+
+/* ─── NAVBAR ─────────────────────────────────────────── */
+.navbar{
+  position:fixed;top:0;left:0;width:100%;height:var(--nav-h);
+  background:rgba(7,14,28,0.97);backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(14,165,233,0.15);
+  z-index:1000;display:flex;align-items:center;
+  padding:0 clamp(16px,5vw,60px);
+  justify-content:space-between;
+  transition:border-color 0.3s;
+  box-shadow:0 1px 20px rgba(14,165,233,0.08);
+}
+.nav-logo{
+  font-family:var(--display);font-size:18px;font-weight:800;
+  color:var(--teal-light);letter-spacing:-0.3px;
+  display:flex;align-items:center;gap:12px;
+  cursor:pointer;text-decoration:none;flex-shrink:0;
+}
+.nav-logo-icon{
+  width:40px;height:40px;
+  background:linear-gradient(135deg,var(--teal) 0%,var(--teal-dark) 100%);
+  border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+  box-shadow:0 4px 14px rgba(14,165,233,0.4);
+}
+.nav-logo-icon svg{width:22px;height:22px;fill:#fff;}
+.nav-logo-text{display:flex;flex-direction:column;line-height:1;}
+.nav-logo-text span{font-size:10px;font-family:var(--mono);font-weight:500;color:var(--txt-dim);letter-spacing:2px;text-transform:uppercase;margin-top:3px;}
+
+.nav-links{display:flex;align-items:center;gap:4px;list-style:none;}
+.nav-links li button{
+  background:none;border:none;
+  color:var(--txt-dim);
+  font-size:11px;font-weight:600;
+  padding:8px 16px;border-radius:7px;
+  transition:all 0.22s var(--ease);
+  cursor:pointer;font-family:var(--mono);
+  letter-spacing:0.8px;text-transform:uppercase;
+  position:relative;white-space:nowrap;
+}
+.nav-links li button:hover{color:var(--teal-light);background:rgba(14,165,233,0.08);}
+.nav-links li button.active{color:var(--teal-light);background:rgba(14,165,233,0.1);}
+.nav-links li button.active::after{
+  content:'';position:absolute;bottom:5px;left:50%;
+  transform:translateX(-50%);width:14px;height:2px;
+  background:var(--teal);border-radius:2px;
+}
+
+.nav-right{display:flex;align-items:center;gap:10px;}
+.btn-demo-nav{
+  background:linear-gradient(135deg,var(--teal),var(--teal-dark));
+  color:var(--white);border:none;padding:9px 20px;border-radius:8px;
+  font-size:11px;font-weight:700;cursor:pointer;
+  transition:all 0.22s;font-family:var(--mono);
+  letter-spacing:0.8px;text-transform:uppercase;white-space:nowrap;
+  box-shadow:0 2px 10px rgba(14,165,233,0.35);
+}
+.btn-demo-nav:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(14,165,233,0.55);}
+
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px;background:none;border:none;flex-shrink:0;}
+.hamburger span{width:22px;height:2px;background:var(--teal-light);border-radius:2px;transition:0.3s;display:block;}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+.mobile-nav{
+  display:none;position:fixed;top:var(--nav-h);left:0;width:100%;
+  background:rgba(7,14,28,0.99);backdrop-filter:blur(20px);
+  padding:12px 20px 20px;flex-direction:column;gap:2px;
+  z-index:999;border-bottom:1px solid rgba(14,165,233,0.15);
+  animation:slideDown 0.25s var(--ease-out);
+}
+@keyframes slideDown{from{opacity:0;transform:translateY(-10px);}to{opacity:1;transform:translateY(0);}}
+.mobile-nav.open{display:flex;}
+.mobile-nav button{
+  background:none;border:none;color:var(--txt-dim);
+  font-size:13px;font-weight:600;padding:13px 12px;
+  border-bottom:1px solid rgba(14,165,233,0.07);
+  cursor:pointer;font-family:var(--mono);text-align:left;
+  text-transform:uppercase;letter-spacing:1px;
+  transition:color 0.2s,background 0.2s;border-radius:6px;
+}
+.mobile-nav button:hover{color:var(--teal-light);background:rgba(14,165,233,0.06);}
+.mobile-nav .mob-cta{
+  margin-top:8px;background:linear-gradient(135deg,var(--teal),var(--teal-dark));
+  color:var(--white);border:none;padding:13px;
+  border-radius:8px;font-weight:700;font-size:12px;
+  letter-spacing:1px;text-transform:uppercase;cursor:pointer;
+  font-family:var(--mono);
+}
+
+/* ─── PAGE SYSTEM ─────────────────────────────────────── */
+.page{display:none;min-height:100vh;padding-top:var(--nav-h);}
+.page.active{display:block;animation:pgIn 0.35s var(--ease);}
+@keyframes pgIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+
+/* ─── SECTION COMMONS ─────────────────────────────────── */
+.label-tag{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--mono);font-size:10px;font-weight:600;
+  letter-spacing:3px;text-transform:uppercase;
+  color:var(--teal-light);margin-bottom:14px;
+}
+.label-tag::before{content:'';width:20px;height:1px;background:var(--teal);}
+
+.label-tag-blue{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--mono);font-size:10px;font-weight:600;
+  letter-spacing:3px;text-transform:uppercase;
+  color:var(--amber);margin-bottom:14px;
+}
+.label-tag-blue::before{content:'';width:20px;height:1px;background:var(--amber);}
+
+.section-h2{
+  font-family:var(--display);font-size:clamp(28px,3.5vw,52px);
+  font-weight:800;line-height:1.1;letter-spacing:-0.8px;
+  margin-bottom:10px;
+}
+.section-h2.green{color:var(--teal-light);}
+.section-h2.dark{color:var(--text-dark);}
+.section-h2.white{color:var(--white);}
+.section-h2.navy-txt{color:var(--teal-light);}
+
+.section-divider{width:56px;height:3px;margin:16px 0 28px;border-radius:2px;}
+.divider-green{background:linear-gradient(90deg,var(--teal),transparent);}
+.divider-blue{background:linear-gradient(90deg,var(--amber),transparent);}
+.divider-center{margin:16px auto 28px;}
+
+.para-dark{color:var(--txt-secondary);line-height:1.85;font-size:17px;}
+.para-light{color:var(--text-mid);line-height:1.85;font-size:17px;}
+
+.container{max-width:var(--max-w);margin:0 auto;padding:0 clamp(16px,4vw,60px);}
+
+/* ─── BUTTONS ─────────────────────────────────────────── */
+.btn-primary{
+  display:inline-flex;align-items:center;gap:8px;
+  background:linear-gradient(135deg,var(--teal),var(--teal-dark));
+  color:var(--white);padding:13px 28px;border-radius:8px;
+  text-decoration:none;font-weight:700;font-size:12px;
+  letter-spacing:0.8px;text-transform:uppercase;
+  transition:all 0.25s;font-family:var(--mono);border:none;cursor:pointer;
+  box-shadow:0 4px 16px rgba(14,165,233,0.3);
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(14,165,233,0.5);}
+
+.btn-secondary{
+  display:inline-flex;align-items:center;gap:8px;
+  border:1.5px solid rgba(14,165,233,0.45);color:var(--teal-light);
+  padding:12px 28px;border-radius:8px;text-decoration:none;
+  font-weight:700;font-size:12px;letter-spacing:0.8px;
+  text-transform:uppercase;transition:all 0.25s;
+  font-family:var(--mono);background:none;cursor:pointer;
+}
+.btn-secondary:hover{background:rgba(14,165,233,0.08);border-color:var(--teal);}
+
+.btn-blue{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--amber);color:var(--bg-black);
+  padding:12px 28px;border-radius:8px;
+  font-weight:700;font-size:12px;letter-spacing:0.8px;
+  text-transform:uppercase;transition:all 0.25s;
+  font-family:var(--mono);border:none;cursor:pointer;
+  box-shadow:0 4px 16px rgba(245,158,11,0.3);
+}
+.btn-blue:hover{transform:translateY(-2px);background:var(--amber-light);box-shadow:0 8px 28px rgba(245,158,11,0.45);}
+
+/* ─── STATUS INDICATORS ─────────────────────────────── */
+.risk-badge{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:3px 10px;border-radius:20px;
+  font-size:10px;font-weight:700;font-family:var(--mono);letter-spacing:0.5px;
+}
+.risk-green{background:rgba(14,165,233,0.12);color:var(--teal-light);border:1px solid rgba(14,165,233,0.3);}
+.risk-amber{background:rgba(245,158,11,0.12);color:var(--amber-light);border:1px solid rgba(245,158,11,0.3);}
+.risk-red{background:rgba(239,68,68,0.1);color:#F87171;border:1px solid rgba(239,68,68,0.25);}
+.risk-blue{background:rgba(59,130,246,0.12);color:var(--blue-soft);border:1px solid rgba(59,130,246,0.3);}
+.risk-dot{width:5px;height:5px;border-radius:50%;background:currentColor;flex-shrink:0;}
+
+/* ─── HERO ─────────────────────────────────────────────── */
+.hero-mini-stats{display:flex;gap:14px;margin-top:34px;flex-wrap:wrap;}
+.hero-mini-card{
+  background:rgba(14,165,233,0.08);
+  border:1px solid rgba(14,165,233,0.18);
+  border-radius:12px;padding:14px 18px;min-width:150px;
+}
+.hero-mini-card strong{
+  display:block;color:var(--teal-light);font-size:22px;font-weight:800;
+  margin-bottom:4px;font-family:var(--display);
+}
+.hero-mini-card span{color:var(--txt-secondary);font-size:12px;line-height:1.5;}
+
+/* DASHBOARD */
+.score-card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:20px;}
+.dashboard-title{color:var(--white);font-size:20px;font-weight:800;margin-top:8px;line-height:1.3;}
+.live-dot-wrap{display:flex;align-items:center;gap:7px;color:var(--teal-light);font-size:10px;font-family:var(--mono);letter-spacing:1.5px;}
+.live-dot{width:8px;height:8px;border-radius:50%;background:var(--teal);animation:pulse-dot 1.6s ease-in-out infinite;}
+
+@media(max-width:900px){.hero-mini-stats{gap:12px;}.hero-mini-card{flex:1 1 calc(50% - 12px);min-width:unset;}}
+@media(max-width:600px){.hero-mini-stats{flex-direction:column;}.hero-mini-card{width:100%;}.dashboard-title{font-size:18px;}}
+
+.hero{
+  position:relative;
+  padding:clamp(80px,12vw,120px) 0 clamp(60px,8vw,90px);
+  background:
+    radial-gradient(circle at top right,rgba(14,165,233,0.12),transparent 40%),
+    radial-gradient(circle at bottom left,rgba(56,189,248,0.08),transparent 45%),
+    linear-gradient(160deg,#070E1C 0%,#0A1428 50%,#0D1B3E 100%);
+  overflow:hidden;min-height:calc(100vh - var(--nav-h));
+  display:flex;align-items:center;
+}
+.hero-grid-bg{display:none;}
+.hero-noise{display:none;}
+.hero-glow-1,.hero-glow-2{display:none;}
+
+.hero-inner{
+  max-width:var(--max-w);margin:0 auto;
+  padding:0 clamp(16px,4vw,60px);
+  display:grid;grid-template-columns:1.15fr 0.85fr;
+  gap:clamp(30px,5vw,80px);align-items:center;
+  position:relative;z-index:1;width:100%;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:9px;
+  background:rgba(14,165,233,0.1);
+  border:1px solid rgba(14,165,233,0.28);
+  color:var(--teal-light);font-size:10px;font-weight:700;
+  letter-spacing:2.5px;padding:6px 14px 6px 10px;
+  border-radius:4px;text-transform:uppercase;
+  margin-bottom:20px;font-family:var(--mono);
+}
+.hero-badge-dot{
+  width:7px;height:7px;border-radius:50%;background:var(--teal);
+  animation:pulse-dot 1.6s ease-in-out infinite;flex-shrink:0;
+}
+@keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.35;transform:scale(0.55);}}
+
+.hero h1{
+  font-family:var(--display);
+  font-size:clamp(38px,4.5vw,68px);
+  line-height:1.06;font-weight:800;
+  letter-spacing:-1.5px;color:var(--white);
+  margin-bottom:10px;
+}
+.hero h1 .green{color:var(--teal-light);}
+.hero h1 .blue{color:var(--amber);}
+
+.hero-rule{width:64px;height:3px;background:linear-gradient(90deg,var(--teal),transparent);border-radius:2px;margin:18px 0 22px;}
+.hero-body{color:var(--txt-secondary);font-size:17px;line-height:1.75;max-width:520px;margin-bottom:30px;}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;}
+
+/* SCORE CARD */
+.score-card{
+  background:rgba(15,32,68,0.9);
+  border:1px solid rgba(14,165,233,0.2);
+  border-radius:18px;padding:24px;
+  box-shadow:0 16px 56px rgba(14,165,233,0.1);
+  backdrop-filter:blur(10px);
+}
+.score-card-label{
+  font-family:var(--mono);font-size:9px;letter-spacing:2px;
+  text-transform:uppercase;color:var(--teal);margin-bottom:4px;
+}
+.score-row{
+  display:flex;align-items:center;gap:12px;
+  padding:10px 0;border-bottom:1px solid rgba(14,165,233,0.08);
+}
+.score-row:last-of-type{border-bottom:none;}
+.score-icon{
+  width:36px;height:36px;border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-size:10px;font-weight:700;flex-shrink:0;
+}
+.green-bg{background:rgba(14,165,233,0.15);color:var(--teal-light);}
+.blue-bg{background:rgba(245,158,11,0.15);color:var(--amber-light);}
+.amber-bg{background:rgba(239,68,68,0.12);color:#F87171;}
+.score-lbl{flex:1;color:var(--txt-secondary);font-size:13px;}
+.score-val{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--teal-light);}
+.score-big{
+  margin-top:16px;padding:16px;
+  background:rgba(14,165,233,0.08);border-radius:12px;
+  border:1px solid rgba(14,165,233,0.15);
+  display:flex;align-items:center;gap:16px;
+}
+.score-big-num{font-family:var(--display);font-size:44px;font-weight:800;color:var(--teal-light);line-height:1;letter-spacing:-2px;}
+.score-big-info .label{font-family:var(--mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--teal);margin-bottom:4px;}
+.score-big-info .sub{color:var(--txt-secondary);font-size:12px;}
+
+/* ─── DARK SECTION ───────────────────────────────────── */
+.section-dark{background:var(--bg-deep);padding:clamp(70px,10vw,100px) 0;}
+
+/* ─── STATS GRID ─────────────────────────────────────── */
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(12px,2vw,20px);margin-top:44px;}
+.stat-card{
+  background:var(--card-bg);border:1px solid rgba(14,165,233,0.12);
+  border-radius:14px;padding:clamp(20px,2.5vw,32px);
+  position:relative;overflow:hidden;
+  box-shadow:0 2px 12px rgba(14,165,233,0.06);
+}
+.stat-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--teal),transparent);
+}
+.stat-num{font-family:var(--display);font-size:clamp(30px,3.5vw,44px);font-weight:800;color:var(--teal-light);letter-spacing:-1.5px;margin-bottom:6px;}
+.stat-lbl{color:var(--txt-secondary);font-size:13px;line-height:1.5;}
+
+/* ─── PLATFORM SECTION ──────────────────────────────── */
+.platform-section{background:var(--bg-dark);padding:clamp(70px,10vw,100px) 0;}
+.platform-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,2.5vw,28px);margin-top:44px;}
+.platform-card{
+  background:var(--card-bg);border:1px solid rgba(14,165,233,0.12);
+  border-radius:16px;overflow:hidden;
+  box-shadow:0 4px 20px rgba(14,165,233,0.06);
+  transition:transform 0.25s,border-color 0.25s,box-shadow 0.25s;
+}
+.platform-card:hover{transform:translateY(-4px);border-color:rgba(14,165,233,0.28);box-shadow:0 12px 40px rgba(14,165,233,0.12);}
+.platform-card-img{height:160px;overflow:hidden;background:rgba(14,165,233,0.06);}
+.platform-card-img img{width:100%;height:100%;object-fit:cover;}
+.platform-card .inner{padding:22px;}
+.element-badge{
+  display:inline-block;font-family:var(--mono);font-size:9px;font-weight:700;
+  letter-spacing:2px;text-transform:uppercase;color:var(--teal);
+  background:rgba(14,165,233,0.1);border:1px solid rgba(14,165,233,0.2);
+  padding:4px 10px;border-radius:4px;margin-bottom:12px;
+}
+.platform-card h3{font-family:var(--display);color:var(--white);font-size:18px;font-weight:800;margin-bottom:10px;}
+.platform-card p{color:var(--txt-secondary);font-size:13.5px;line-height:1.65;margin-bottom:14px;}
+.more-text{
+  color:var(--txt-secondary);font-size:13px;line-height:1.65;
+  max-height:0;overflow:hidden;
+  transition:max-height 0.35s var(--ease),padding 0.35s;
+}
+.platform-card.open .more-text{max-height:300px;padding-bottom:12px;}
+.expand-btn{
+  background:none;border:1px solid rgba(14,165,233,0.25);
+  color:var(--teal-light);padding:7px 18px;border-radius:6px;
+  font-family:var(--mono);font-size:10px;font-weight:700;
+  letter-spacing:1px;text-transform:uppercase;cursor:pointer;
+  transition:all 0.25s;
+}
+.expand-btn:hover{background:rgba(14,165,233,0.08);border-color:rgba(14,165,233,0.45);}
+.platform-sub{max-width:720px;margin-bottom:36px;}
+.platform-img-wrap{height:160px;overflow:hidden;background:rgba(14,165,233,0.06);}
+.platform-img-wrap img{width:100%;height:100%;object-fit:cover;}
+
+/* ─── ABOUT ─────────────────────────────────────────────── */
+.about-hero{background:var(--bg-black);padding:clamp(80px,12vw,120px) 0 clamp(60px,8vw,100px);}
+.about-grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:clamp(40px,6vw,80px);align-items:start;}
+.about-para{color:var(--txt-secondary);font-size:16px;line-height:1.8;margin-bottom:18px;}
+.about-tags{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:28px;}
+.feature-tag{
+  background:rgba(14,165,233,0.06);border:1px solid rgba(14,165,233,0.18);
+  color:var(--txt-secondary);font-size:12px;
+  padding:10px 14px;border-radius:8px;font-weight:500;
+  transition:border-color 0.2s,color 0.2s;
+}
+.feature-tag:hover{border-color:rgba(14,165,233,0.35);color:var(--teal-light);}
+.founder-card{
+  background:var(--card-bg);
+  border:1px solid rgba(14,165,233,0.15);border-radius:16px;
+  padding:28px;margin-bottom:24px;position:relative;overflow:hidden;
+  box-shadow:0 2px 14px rgba(14,165,233,0.08);
+}
+.founder-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--teal),var(--amber),transparent);
+}
+.founder-tag{
+  font-family:var(--mono);font-size:9px;color:var(--teal-light);
+  letter-spacing:2.5px;text-transform:uppercase;margin-bottom:8px;
+  display:inline-flex;align-items:center;gap:6px;
+}
+.founder-card h4{font-family:var(--display);color:var(--white);font-size:22px;font-weight:800;margin-bottom:4px;}
+.founder-title{font-family:var(--mono);font-size:11px;color:var(--txt-dim);letter-spacing:1px;margin-bottom:18px;text-transform:uppercase;}
+.founder-card p{color:var(--txt-secondary);font-size:14px;line-height:1.75;margin-bottom:14px;}
+
+/* ─── KPI ROW ─────────────────────────────────────────── */
+.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(12px,2vw,20px);margin-bottom:36px;}
+.kpi-card{
+  background:var(--card-bg);border:1px solid rgba(14,165,233,0.12);border-radius:12px;
+  padding:clamp(18px,2.5vw,28px);text-align:center;box-shadow:0 2px 10px rgba(14,165,233,0.05);
+}
+.kpi-num{font-family:var(--display);font-size:clamp(26px,3vw,38px);font-weight:800;color:var(--teal-light);letter-spacing:-1px;margin-bottom:6px;}
+.kpi-lbl{color:var(--txt-secondary);font-size:12px;line-height:1.45;}
+
+/* ─── MARKET ─────────────────────────────────────────── */
+.charts-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,2.5vw,28px);margin-bottom:28px;}
+.chart-card{
+  background:var(--card-bg);border:1px solid rgba(14,165,233,0.12);
+  border-radius:14px;padding:22px;box-shadow:0 2px 10px rgba(14,165,233,0.05);
+}
+.chart-card-full{
+  background:var(--card-bg);border:1px solid rgba(14,165,233,0.12);
+  border-radius:14px;padding:22px;margin-bottom:28px;box-shadow:0 2px 10px rgba(14,165,233,0.05);
+}
+.chart-title{font-family:var(--display);color:var(--white);font-size:16px;font-weight:700;margin-bottom:4px;}
+.chart-sub{color:var(--txt-dim);font-size:12px;font-family:var(--mono);margin-bottom:16px;}
+.chart-wrap{height:240px;position:relative;}
+.chart-wrap-lg{height:360px;position:relative;}
+
+.market-kpi{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,2vw,24px);margin-bottom:36px;}
+.mkt-card{background:var(--card-bg);border:1px solid rgba(14,165,233,0.18);border-radius:12px;padding:20px;box-shadow:0 2px 10px rgba(14,165,233,0.06);}
+.mkt-num{font-family:var(--display);font-size:clamp(28px,3vw,40px);font-weight:800;color:var(--teal-light);letter-spacing:-1px;margin-bottom:6px;}
+.mkt-lbl{color:var(--txt-secondary);font-size:13px;line-height:1.5;}
+.mkt-source{font-family:var(--mono);font-size:9px;color:var(--txt-dim);letter-spacing:1px;text-transform:uppercase;margin-top:8px;}
+
+/* ─── PRICING ─────────────────────────────────────────── */
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,2.5vw,28px);margin-bottom:56px;}
+.price-card{
+  background:var(--card-bg);border:1px solid rgba(14,165,233,0.12);
+  border-radius:16px;padding:30px;position:relative;
+  transition:transform 0.25s,border-color 0.25s,box-shadow 0.25s;
+  box-shadow:0 2px 14px rgba(14,165,233,0.06);
+}
+.price-card:hover{transform:translateY(-4px);border-color:rgba(14,165,233,0.3);box-shadow:0 12px 40px rgba(14,165,233,0.12);}
+.price-card.featured{
+  border-color:var(--teal);
+  box-shadow:0 0 0 1px rgba(14,165,233,0.2),0 16px 50px rgba(14,165,233,0.15);
+  background:linear-gradient(145deg,#0F2044,#0A2B5A);
+}
+.price-card.featured::before{
+  content:'MOST POPULAR';position:absolute;top:-1px;left:50%;
+  transform:translateX(-50%);
+  background:linear-gradient(135deg,var(--teal),var(--teal-dark));
+  color:var(--white);font-size:9px;font-weight:700;
+  font-family:var(--mono);letter-spacing:2px;
+  padding:4px 16px;border-radius:0 0 8px 8px;
+}
+.price-tier{font-family:var(--mono);font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--teal-light);margin-bottom:8px;}
+.price-card h3{font-family:var(--display);color:var(--white);font-size:22px;font-weight:800;margin-bottom:10px;}
+.price-card .desc{color:var(--txt-secondary);font-size:13px;line-height:1.6;margin-bottom:20px;}
+.price-amount{font-family:var(--display);font-size:clamp(36px,4vw,52px);font-weight:800;color:var(--white);letter-spacing:-2px;}
+.price-period{font-family:var(--mono);font-size:10px;color:var(--txt-dim);letter-spacing:1px;margin-bottom:24px;margin-top:4px;}
+.price-divider{height:1px;background:rgba(14,165,233,0.1);margin-bottom:22px;}
+.price-features{list-style:none;margin-bottom:28px;}
+.price-features li{color:var(--txt-secondary);font-size:13.5px;padding:7px 0;border-bottom:1px solid rgba(14,165,233,0.07);display:flex;align-items:center;gap:10px;}
+.price-features li:last-child{border-bottom:none;}
+.chk{color:var(--teal-light);font-weight:700;flex-shrink:0;}
+.price-btn{width:100%;padding:13px;border-radius:8px;font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;cursor:pointer;transition:all 0.25s;border:none;}
+.price-btn-outline{background:none;border:1.5px solid rgba(14,165,233,0.35);color:var(--teal-light);}
+.price-btn-outline:hover{background:rgba(14,165,233,0.07);}
+.price-btn-green{background:linear-gradient(135deg,var(--teal),var(--teal-dark));color:var(--white);box-shadow:0 4px 16px rgba(14,165,233,0.3);}
+.price-btn-green:hover{box-shadow:0 8px 28px rgba(14,165,233,0.5);transform:translateY(-1px);}
+
+/* Professional Services */
+@media(max-width:900px){.professional-services-grid{grid-template-columns:1fr !important;gap:18px !important;}.professional-service-card{padding:20px !important;}}
+@media(max-width:600px){.professional-services-wrapper{padding:20px 16px !important;border-radius:12px !important;margin-bottom:32px !important;}.professional-services-grid{gap:14px !important;margin-top:14px !important;}.professional-service-card{padding:18px !important;border-radius:12px !important;}}
+
+@media(max-width:900px){.pricing-grid{grid-template-columns:1fr;gap:22px;}.price-card{padding:26px;}.price-card h3{font-size:20px;}.price-amount{font-size:44px;}}
+@media(max-width:600px){.pricing-grid{gap:18px;}.price-card{padding:22px 18px;border-radius:14px;}.price-card h3{font-size:18px;}.price-card .desc{font-size:12.5px;}.price-amount{font-size:38px;}.price-features li{font-size:13px;align-items:flex-start;}.price-btn{font-size:11px;padding:12px;}}
+
+/* ─── FAQ ────────────────────────────────────────────────── */
+.faq-wrap{margin-bottom:48px;}
+.faq-item{border-bottom:1px solid rgba(14,165,233,0.1);padding:20px 0;}
+.faq-q{display:flex;justify-content:space-between;align-items:center;cursor:pointer;gap:20px;}
+.faq-q h4{font-family:var(--display);color:var(--white);font-size:16px;font-weight:600;}
+.faq-icon{color:var(--teal-light);font-size:22px;font-weight:300;flex-shrink:0;transition:transform 0.25s;}
+.faq-item.open .faq-icon{transform:rotate(45deg);}
+.faq-body{color:var(--txt-secondary);font-size:14.5px;line-height:1.75;max-height:0;overflow:hidden;transition:max-height 0.35s var(--ease),padding 0.35s;}
+.faq-item.open .faq-body{max-height:320px;padding-top:14px;}
+
+/* ─── CONTACT ────────────────────────────────────────────── */
+.contact-item{display:flex;align-items:flex-start;gap:14px;margin-bottom:18px;}
+.violet-icon{
+  width:48px;height:48px;border-radius:14px;
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,var(--teal),var(--teal-dark));
+  color:#ffffff;font-size:18px;
+  box-shadow:0 8px 20px rgba(14,165,233,0.35);flex-shrink:0;
+}
+.contact-item-text strong{display:block;color:var(--white);font-size:15px;margin-bottom:4px;}
+.contact-item-text span{color:var(--txt-secondary);font-size:14px;line-height:1.6;}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,6vw,80px);align-items:start;}
+.contact-left-para{color:var(--txt-secondary);font-size:15px;line-height:1.75;margin-bottom:16px;}
+.contact-icon{width:40px;height:40px;background:rgba(14,165,233,0.1);border:1px solid rgba(14,165,233,0.2);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.contact-form-card{
+  background:var(--card-bg);border:1px solid rgba(14,165,233,0.18);
+  border-radius:16px;padding:36px;position:relative;overflow:hidden;
+  box-shadow:0 4px 20px rgba(14,165,233,0.08);
+}
+.contact-form-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--teal),var(--amber),transparent);}
+.contact-form-card h3{font-family:var(--display);color:var(--white);font-size:22px;font-weight:800;margin-bottom:24px;}
+.form-group{margin-bottom:18px;}
+.form-label{display:block;font-family:var(--mono);font-size:10px;font-weight:700;color:var(--txt-dim);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px;}
+.form-ctrl{
+  width:100%;background:rgba(7,14,28,0.8);
+  border:1px solid rgba(14,165,233,0.2);border-radius:8px;
+  padding:12px 16px;color:var(--text-dark);font-size:14px;
+  font-family:var(--font);transition:all 0.25s;outline:none;
+}
+.form-ctrl::placeholder{color:var(--txt-dim);}
+.form-ctrl:focus{border-color:rgba(14,165,233,0.5);background:rgba(15,32,68,0.8);box-shadow:0 0 0 3px rgba(14,165,233,0.08);}
+.form-ctrl option{background:var(--bg-dark);color:var(--text-dark);}
+.ta{resize:vertical;min-height:90px;}
+.form-submit{
+  width:100%;background:linear-gradient(135deg,var(--teal),var(--teal-dark));
+  color:var(--white);border:none;padding:14px;border-radius:8px;
+  font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:1px;
+  text-transform:uppercase;cursor:pointer;transition:all 0.25s;
+}
+.form-submit:hover{box-shadow:0 8px 28px rgba(14,165,233,0.45);transform:translateY(-1px);}
+
+/* ─── FOOTER ─────────────────────────────────────────── */
+footer{
+  background:var(--bg-deep);
+  border-top:1px solid rgba(14,165,233,0.12);
+}
+.footer-inner{max-width:var(--max-w);margin:0 auto;padding:0 clamp(16px,4vw,60px);}
+.footer-top-band{
+  display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;
+  gap:clamp(24px,4vw,56px);padding:clamp(48px,6vw,72px) 0 clamp(36px,4vw,48px);
+  border-bottom:1px solid rgba(14,165,233,0.08);
+}
+.footer-brand-logo{
+  font-family:var(--display);font-size:24px;font-weight:800;
+  color:var(--teal-light);letter-spacing:-0.5px;margin-bottom:14px;
+}
+.footer-brand-desc{color:var(--txt-dim);font-size:13px;line-height:1.7;margin-bottom:16px;max-width:320px;}
+.footer-tagline{
+  font-family:var(--mono);font-size:9px;letter-spacing:3px;
+  text-transform:uppercase;color:var(--teal);margin-top:4px;
+}
+.footer-col-title{
+  font-family:var(--mono);font-size:9px;letter-spacing:2.5px;
+  text-transform:uppercase;color:var(--teal);margin-bottom:18px;font-weight:700;
+}
+.footer-col a{
+  display:flex;align-items:center;gap:8px;
+  color:var(--txt-dim);font-size:13.5px;margin-bottom:12px;
+  cursor:pointer;transition:color 0.2s,gap 0.2s;text-decoration:none;
+}
+.footer-col a:hover{color:var(--teal-light);gap:12px;}
+.footer-col a::before{content:'→';font-size:10px;opacity:0;transition:opacity 0.2s;}
+.footer-col a:hover::before{opacity:1;}
+.footer-badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;}
+.footer-badge{
+  background:rgba(14,165,233,0.08);border:1px solid rgba(14,165,233,0.2);
+  color:var(--txt-dim);font-size:10px;font-family:var(--mono);
+  padding:4px 10px;border-radius:4px;letter-spacing:0.5px;
+}
+.footer-stats-strip{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:0;border-bottom:1px solid rgba(14,165,233,0.08);margin-bottom:0;
+}
+.footer-stat{padding:24px 0;text-align:center;border-right:1px solid rgba(14,165,233,0.07);}
+.footer-stat:last-child{border-right:none;}
+.footer-stat-num{font-family:var(--display);font-size:28px;font-weight:800;color:var(--teal-light);letter-spacing:-1px;margin-bottom:4px;}
+.footer-stat-lbl{font-family:var(--mono);font-size:9px;color:var(--txt-dim);letter-spacing:1.5px;text-transform:uppercase;}
+.footer-bottom-bar{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;padding:20px 0 24px;}
+.footer-bottom-bar p{color:var(--txt-dim);font-size:12px;font-family:var(--mono);}
+.footer-bottom-bar span{color:var(--teal-light);}
+.footer-bottom-links{display:flex;gap:20px;}
+.footer-bottom-links a{color:var(--txt-dim);font-size:12px;font-family:var(--mono);text-decoration:none;transition:color 0.2s;cursor:pointer;}
+.footer-bottom-links a:hover{color:var(--teal-light);}
+
+/* ─── IMPLEMENTATION TIMELINE ─────────────────────────── */
+.impl-timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:44px;position:relative;}
+.impl-step{display:flex;flex-direction:column;align-items:stretch;position:relative;}
+.impl-dot-col{display:none;}
+.impl-timeline::before{
+  content:'';position:absolute;top:18px;left:calc(12.5% + 14px);right:calc(12.5% + 14px);
+  height:2px;background:linear-gradient(90deg,var(--teal),var(--amber),var(--teal),var(--amber));
+  opacity:0.25;z-index:0;
+}
+.impl-card{
+  background:var(--card-bg);border:1px solid rgba(14,165,233,0.12);
+  border-radius:14px;padding:20px 18px 18px;
+  box-shadow:0 2px 12px rgba(14,165,233,0.06);
+  position:relative;margin:0 6px;
+  transition:transform 0.25s,box-shadow 0.25s,border-color 0.25s;
+}
+.impl-card:hover{transform:translateY(-4px);border-color:rgba(14,165,233,0.28);box-shadow:0 10px 36px rgba(14,165,233,0.12);}
+.impl-card::before{
+  content:attr(data-step);position:absolute;top:-34px;left:50%;transform:translateX(-50%);
+  width:28px;height:28px;
+  background:linear-gradient(135deg,var(--teal),var(--teal-dark));
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-size:10px;font-weight:700;color:#fff;
+  box-shadow:0 2px 8px rgba(14,165,233,0.4);z-index:1;
+}
+.impl-week{font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;margin-top:6px;}
+.impl-title{font-family:var(--display);font-size:17px;font-weight:800;color:var(--white);margin-bottom:10px;line-height:1.2;}
+.impl-body{color:var(--txt-secondary);font-size:13px;line-height:1.65;margin-bottom:14px;}
+.impl-tags{display:flex;flex-wrap:wrap;gap:6px;}
+
+@media(max-width:700px){
+  .impl-timeline{grid-template-columns:1fr;gap:0;padding-left:16px;}
+  .impl-timeline::before{display:none;}
+  .impl-step{flex-direction:row;gap:0;align-items:stretch;}
+  .impl-dot-col{display:flex;flex-direction:column;align-items:center;flex-shrink:0;width:32px;margin-right:16px;}
+  .impl-dot{width:14px;height:14px;border-radius:50%;flex-shrink:0;margin-top:22px;box-shadow:0 0 0 3px rgba(7,14,28,1),0 0 0 5px currentColor;}
+  .impl-dot-purple{background:var(--teal);color:var(--teal);}
+  .impl-dot-blue{background:var(--amber);color:var(--amber);}
+  .impl-line{flex:1;width:2px;background:linear-gradient(180deg,rgba(14,165,233,0.3),rgba(245,158,11,0.2));margin:6px 0;border-radius:2px;}
+  .impl-card{margin:0 0 20px 0;flex:1;}
+  .impl-card::before{display:none;}
+}
+
+/* ─── RESPONSIVE ─────────────────────────────────────────── */
+@media(min-width:1400px){:root{--max-w:1300px;}.hero h1{font-size:72px;}.hero-body{font-size:20px;max-width:580px;}.section-h2{font-size:54px;}.para-dark,.para-light{font-size:18px;}.stat-num{font-size:46px;}}
+@media(max-width:1100px){.footer-top-band{grid-template-columns:1fr 1fr;}.footer-stats-strip{grid-template-columns:repeat(2,1fr);}.footer-stats-strip .footer-stat:nth-child(2){border-right:none;}}
+@media(max-width:900px){.platform-grid{grid-template-columns:repeat(2,1fr);}.pricing-grid{grid-template-columns:1fr 1fr;}.kpi-row{grid-template-columns:repeat(2,1fr);}.market-kpi{grid-template-columns:1fr 1fr;}.stats-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:768px){
+  .nav-links,.nav-right .btn-demo-nav{display:none;}
+  .hamburger{display:flex;}
+  .nav-right{gap:0;}
+  .hero-inner{grid-template-columns:1fr;}
+  .hero-inner>div:last-child{display:none;}
+  .stats-grid{grid-template-columns:repeat(2,1fr);}
+  .platform-grid{grid-template-columns:1fr;}
+  .about-grid{grid-template-columns:1fr;}
+  .kpi-row{grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:28px;}
+  .kpi-card{padding:16px 12px;}
+  .charts-grid{grid-template-columns:1fr;gap:16px;margin-bottom:16px;}
+  .chart-card{padding:16px;}
+  .chart-card-full{padding:16px;margin-bottom:16px;}
+  .chart-wrap{height:200px;}
+  .chart-wrap-lg{height:260px;}
+  .pricing-grid{grid-template-columns:1fr;}
+  .contact-grid{grid-template-columns:1fr;}
+  .footer-top-band{grid-template-columns:1fr;}
+  .footer-stats-strip{grid-template-columns:repeat(2,1fr);}
+  .footer-bottom-bar{flex-direction:column;align-items:flex-start;}
+}
+@media(max-width:480px){.stats-grid{grid-template-columns:repeat(2,1fr);}.kpi-row{grid-template-columns:1fr;}.about-tags{grid-template-columns:1fr;}.chart-wrap{height:180px;}.chart-wrap-lg{height:220px;}.footer-stats-strip{grid-template-columns:1fr;}.footer-stat{border-right:none;border-bottom:1px solid rgba(14,165,233,0.08);}}
+</style>
+</head>
+<body>
+
+<!-- ═══════════ NAVBAR ═══════════ -->
+<nav class="navbar">
+
+  <a class="nav-logo" href="#" onclick="showPage('home');return false;">
+
+    <div class="nav-logo-text">
+      Fatigue Intelligence Group
+      <span>Workforce Safety Intelligence</span>
+    </div>
+
+  </a>
+
+  <ul class="nav-links">
+    <li><button id="nav-home" class="active" onclick="showPage('home')">Home</button></li>
+    <li><button id="nav-about" onclick="showPage('about')">About</button></li>
+    <li><button id="nav-platform" onclick="showPage('platform')">Platform</button></li>
+    <li><button id="nav-market" onclick="showPage('market')">Market</button></li>
+    <li><button id="nav-process" onclick="showPage('process')">Process</button></li>
+    <li><button id="nav-faq" onclick="showPage('faq')">FAQ</button></li>
+    <li><button id="nav-pricing" onclick="showPage('pricing')">Pricing</button></li>
+    <li><button id="nav-contact" onclick="showPage('contact')">Contact</button></li>
+  </ul>
+
+  <div class="nav-right">
+
+    <button class="btn-demo-nav"
+            onclick="showPage('contact')">
+      Request Demo
+    </button>
+
+    <button class="hamburger"
+            id="hamburger"
+            aria-label="Menu">
+
+      <span></span>
+      <span></span>
+      <span></span>
+
+    </button>
+
+  </div>
+
+</nav>
+
+<!-- Mobile Nav -->
+<div class="mobile-nav" id="mobileNav">
+
+  <button onclick="showPage('home');closeMobile()">Home</button>
+  <button onclick="showPage('about');closeMobile()">About</button>
+  <button onclick="showPage('platform');closeMobile()">Platform</button>
+  <button onclick="showPage('market');closeMobile()">Market</button>
+  <button onclick="showPage('process');closeMobile()">Process</button>
+  <button onclick="showPage('faq');closeMobile()">FAQ</button>
+  <button onclick="showPage('pricing');closeMobile()">Pricing</button>
+  <button onclick="showPage('contact');closeMobile()">Contact</button>
+
+  <button class="mob-cta"
+          onclick="showPage('contact');closeMobile()">
+    Request Demo →
+  </button>
+
+</div>
+
+
+<!-- ═══════════════════════════════════════════
+     PAGE : HOME
+═══════════════════════════════════════════════ -->
+<div class="page active" id="page-home">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <!-- LEFT -->
+      <div>
+        <div class="hero-badge">
+          <span class="hero-badge-dot"></span>
+          AI-Powered Fatigue Risk Management Platform
+        </div>
+        <h1>
+          Eliminate Fatigue Risk.<br>
+          <span class="green">Protect</span> Your
+          <span class="blue">Workforce.</span>
+        </h1>
+        <div class="hero-rule"></div>
+        <p class="hero-body">
+          Fatigue Intelligence Group delivers AI-driven fatigue risk assessment, predictive workforce monitoring, and real-time safety intelligence  helping organisations prevent fatigue-related incidents before they occur.
+        </p>
+        <div class="hero-btns">
+          <button class="btn-primary" onclick="showPage('contact')">Book Platform Demo</button>
+          <button class="btn-secondary" onclick="showPage('platform')">Explore Platform</button>
+        </div>
+        
+      
+      </div>
+      <!-- RIGHT DASHBOARD -->
+      <div>
+        <div class="score-card">
+          <div class="score-card-top">
+            <div>
+              <div class="score-card-label">Fatigue Intelligence Group · Live Engine</div>
+              <h3 class="dashboard-title">Workforce Safety Dashboard</h3>
+            </div>
+            <div class="live-dot-wrap"><span class="live-dot"></span>LIVE</div>
+          </div>
+          <div class="score-row">
+            <div class="score-icon green-bg">FI</div>
+            <span class="score-lbl">Fatigue Index Monitored</span>
+            <span class="score-val">3,847</span>
+          </div>
+          <div class="score-row">
+            <div class="score-icon blue-bg">AL</div>
+            <span class="score-lbl">Active Alerts Resolved</span>
+            <span class="score-val">1,024</span>
+          </div>
+          <div class="score-row">
+            <div class="score-icon amber-bg">HR</div>
+            <span class="score-lbl">High-Risk Shifts Flagged</span>
+            <span class="score-val">18</span>
+          </div>
+          <div class="score-row">
+            <div class="score-icon green-bg">CM</div>
+            <span class="score-lbl">Compliance Monitoring</span>
+            <span class="score-val">Active</span>
+          </div>
+          <div class="score-row">
+            <div class="score-icon blue-bg">IR</div>
+            <span class="score-lbl">Incident Risk Reduction</span>
+            <span class="score-val">42.3%</span>
+          </div>
+          <div class="score-big">
+            <div class="score-big-num">94</div>
+            <div class="score-big-info">
+              <div class="label">Workforce Safety Score</div>
+              <div class="sub">Fatigue Governed · Compliant</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS STRIP -->
+  <section class="section-dark">
+    <div class="container">
+      <div class="label-tag">The Fatigue Crisis</div>
+      <h2 class="section-h2 white">Fatigue Costs UK Businesses<br>Billions Every Year.</h2>
+      <div class="section-divider divider-green"></div>
+      <p class="para-dark" style="max-width:760px;">
+        Workforce fatigue is the hidden epidemic draining productivity, causing accidents, and costing lives. Most organisations detect fatigue too late  after the incident has already occurred. Fatigue Intelligence Group changes that with predictive, real-time intelligence.
+      </p>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-num">£4.1B</div>
+          <div class="stat-lbl">Annual cost of fatigue to UK businesses in lost productivity and incidents</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">20%</div>
+          <div class="stat-lbl">Of all road accidents in the UK are fatigue-related, per ROSPA data</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">37%</div>
+          <div class="stat-lbl">Of UK workers report fatigue severely impacting their job performance</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">3x</div>
+          <div class="stat-lbl">Greater likelihood of workplace errors when fatigue score exceeds safe thresholds</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PLATFORM PREVIEW -->
+  <section class="platform-section">
+    <div class="container">
+      <div class="label-tag">Core Engines</div>
+      <h2 class="section-h2 white">Three Engines. One Intelligent Safety Platform.</h2>
+      <div class="section-divider divider-green"></div>
+      <p class="para-dark platform-sub">Fatigue Intelligence Group combines real-time biometric data, AI predictive modelling, and regulatory compliance intelligence into a unified platform that keeps your workforce safe  shift by shift, role by role.</p>
+      <div class="platform-grid">
+        <div class="platform-card">
+          <div class="platform-img-wrap">
+            <img src="p6.jpg" alt="Fatigue Risk Engine">
+          </div>
+          <div class="inner">
+            <div class="element-badge">Engine 01</div>
+            <h3>Predictive Fatigue Risk Engine</h3>
+            <p>AI models continuously assess individual and team fatigue risk using shift patterns, biometric inputs, and historical data to predict dangerous fatigue states before they occur.</p>
+            <div class="more-text">Uses behavioural intelligence models to map sleep debt, circadian rhythm disruption, and shift load  generating a real-time Fatigue Risk Score for every worker on shift.</div>
+            <button class="expand-btn" onclick="toggleCard(this)">Learn More</button>
+          </div>
+        </div>
+        <div class="platform-card">
+          <div class="platform-img-wrap">
+            <img src="p7.jpg" alt="Incident Forensics">
+          </div>
+          <div class="inner">
+            <div class="element-badge">Engine 02</div>
+            <h3>Incident Forensics & Root Cause</h3>
+            <p>Analyses workforce incidents, near-misses, and safety events to trace root causes to fatigue factors  enabling corrective scheduling before the next shift begins.</p>
+            <div class="more-text">Generates forensic-level operational intelligence reporting aligned with HSE, RIDDOR, and ISO 45003 standards, providing a defensible audit trail for regulatory review.</div>
+            <button class="expand-btn" onclick="toggleCard(this)">Learn More</button>
+          </div>
+        </div>
+        <div class="platform-card">
+          <div class="platform-img-wrap">
+            <img src="pp10.jpg" alt="Compliance Automation">
+          </div>
+          <div class="inner">
+            <div class="element-badge">Engine 03</div>
+            <h3>Compliance Automation Engine</h3>
+            <p>Automatically checks every shift against Working Time Regulations, sector-specific rest requirements, and internal fatigue policies  flagging breaches in real time.</p>
+            <div class="more-text">Reduces the manual compliance overhead for H&S teams by 60%, ensuring every rota meets UK legal standards and HSE fatigue risk management guidelines automatically.</div>
+            <button class="expand-btn" onclick="toggleCard(this)">Learn More</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- end page home -->
+
+
+<!-- ═══════════════════════════════════════════
+     PAGE: ABOUT
+═══════════════════════════════════════════════ -->
+<div class="page" id="page-about">
+  <section class="about-hero">
+    <div class="container">
+      <div class="about-grid">
+        <div>
+          <div class="label-tag">Our Mission</div>
+          <h2 class="section-h2 green">Transforming Reactive Safety Into Predictive Workforce Intelligence</h2>
+          <div class="section-divider divider-green"></div>
+          <p class="about-para">Fatigue Intelligence Group was founded on a clear premise: the UK's safety and workforce management systems are reactive. Incidents are investigated after they occur. Fatigue is identified after the shift ends. The cost  in human lives, regulatory penalties, and lost productivity  is enormous and largely preventable.</p>
+          <p class="about-para">Our platform transforms fatigue risk management from a paper-based, post-incident practice into a governed, real-time intelligence system. We don't just monitor shift hours  we model the neurological and physiological signature of fatigue at an individual and team level, providing the early warning intelligence that allows managers to intervene before risk becomes reality.</p>
+          <p class="about-para">Built by supply chain, logistics, and safety professionals, Fatigue Intelligence Group encodes operational expertise into a SaaS platform built specifically for the UK's high-risk sectors: logistics, healthcare, manufacturing, construction, and transport.</p>
+          <div class="about-tags">
+            <div class="feature-tag">AI Fatigue Risk Scoring Engine</div>
+            <div class="feature-tag">Biometric Integration Layer</div>
+            <div class="feature-tag">Predictive Shift Intelligence</div>
+            <div class="feature-tag">Incident Forensics Framework</div>
+            <div class="feature-tag">Compliance Automation (WTR)</div>
+            <div class="feature-tag">Real-Time Safety Alerting</div>
+            <div class="feature-tag">UK GDPR · HSE Compliant</div>
+            <div class="feature-tag">ISO 45003 Aligned</div>
+          </div>
+        </div>
+        <div>
+          <div class="founder-card">
+            <div class="founder-tag">Founder & CEO</div>
+            <h4>Mohammad Jia Ul Huq Khan Pattan</h4>
+            <div class="founder-title">Operations Leader · MBA Logistics & Supply Chain · Workforce Safety Expert</div>
+            <p>A results-driven operations professional with an MBA in Logistics & Supply Chain Management from the University of the West of Scotland, and hands-on experience leading warehouse and logistics teams at Amazon and across the FMCG sector. Jia brings a unique combination of academic rigour and operational frontline expertise to the challenge of fatigue risk in high-intensity workplaces.</p>
+            <p>His experience managing late-shift warehouse teams, achieving 100% OTIF and zero lost-time incidents at Amazon through structured health & safety leadership, directly informs Fatigue Intelligence Group's approach  building the kind of predictive, data-driven fatigue intelligence that operational managers actually need, not just what compliance teams require.</p>
+            <button class="btn-primary" onclick="showPage('contact')">Contact Jia →</button>
+          </div>
+          <div class="founder-card">
+            <div class="founder-tag">Growing the Team · Phase 2</div>
+            <h4>Strategic UK Hires</h4>
+            <div class="founder-title">Evidence-Based Recruitment Plan</div>
+            <p>Fatigue Intelligence Group is building its core team through a phased, revenue-linked strategy: a Full-Stack Engineer to accelerate the SaaS platform and biometric API integrations; a Senior Data Scientist to refine the Fatigue Risk Scoring models; and Customer Success Leads to manage onboarding across UK logistics and healthcare hubs in London, Manchester, and Birmingham.</p>
+            <p>All hires are UK-based, aligned with the Government's Workforce Safety and Digital Health agendas. By Year 5, the platform targets 20+ UK jobs across technical development, operations, and global commercial functions.</p>
+            <button class="btn-primary" onclick="showPage('market')">View Market Opportunity →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div><!-- end page about -->
+
+
+<!-- ═══════════════════════════════════════════
+     PAGE: PLATFORM
+═══════════════════════════════════════════════ -->
+<div class="page" id="page-platform">
+  <section class="section-dark" style="padding-top:clamp(80px,12vw,120px);">
+    <div class="container">
+      <div class="label-tag">The Platform</div>
+      <h2 class="section-h2 white">Every Layer of Fatigue Intelligence Group's Safety Intelligence</h2>
+      <div class="section-divider divider-green"></div>
+      <p class="para-dark platform-sub">Fatigue Intelligence Group is a cloud-native SaaS platform built on a modular architecture  real-time dashboards, biometric API integration, proprietary fatigue risk data model, and UK GDPR-compliant infrastructure  designed to serve high-risk UK sectors without requiring in-house safety data science teams.</p>
+
+      <div class="platform-grid">
+        <div class="platform-card">
+          <div class="platform-card-img"><img src="p8.jpg" alt="Fatigue Risk Scoring"></div>
+          <div class="inner">
+            <div class="element-badge">Module 01</div>
+            <h3>AI Fatigue Risk Scoring</h3>
+            <p>Machine learning models that calculate a real-time Fatigue Risk Score for every worker on shift  factoring in sleep patterns, shift length, circadian phase, workload intensity, and historical incident data.</p>
+            <div class="more-text">Each worker develops a unique Fatigue Profile  a combination of personal risk tolerance, shift history, and physiological response patterns. This methodology is proprietary and creates highly defensible, legally admissible fatigue risk evidence.</div>
+            <button class="expand-btn" onclick="toggleCard(this)">Learn More</button>
+          </div>
+        </div>
+        <div class="platform-card">
+          <div class="platform-card-img"><img src="p9.jpg" alt="Shift Intelligence Engine"></div>
+          <div class="inner">
+            <div class="element-badge">Module 02</div>
+            <h3>Predictive Shift Intelligence</h3>
+            <p>Automatically diagnoses high-risk shift patterns  excessive consecutive nights, insufficient rest windows, and dangerous shift rotation sequences  before rotas are published.</p>
+            <div class="more-text">Trained on UK sector-specific incident data and HSE fatigue research. The system self-calibrates risk thresholds by role and sector, providing a robust audit trail for regulatory inspections.</div>
+            <button class="expand-btn" onclick="toggleCard(this)">Learn More</button>
+          </div>
+        </div>
+        <div class="platform-card">
+          <div class="platform-card-img"><img src="pp10.jpg" alt="Biometric Integration"></div>
+          <div class="inner">
+            <div class="element-badge">Module 03</div>
+            <h3>Biometric Integration Layer</h3>
+            <p>Integrates with wearable devices, access control systems, and telematics to enrich the fatigue risk model with objective physiological data  heart rate variability, reaction time, and alertness indicators.</p>
+            <div class="more-text">Generates comprehensive fatigue intelligence reports that link biometric markers to operational performance, providing safety managers with the objective evidence base previously unavailable to non-enterprise organisations.</div>
+            <button class="expand-btn" onclick="toggleCard(this)">Learn More</button>
+          </div>
+        </div>
+        <div class="platform-card">
+          <div class="platform-card-img"><img src="p11.jpg" alt="Compliance Engine"></div>
+          <div class="inner">
+            <div class="element-badge">Module 04</div>
+            <h3>Compliance Automation Engine</h3>
+            <p>Automatically checks every shift and rota against Working Time Regulations, sector-specific rest requirements, and internal fatigue policies  flagging breaches before they become liabilities.</p>
+            <div class="more-text">Performance-Weighted Risk Evolution ensures high-risk patterns are automatically escalated. New rotas are validated against established safe scheduling patterns before deployment, reducing compliance risk to near zero.</div>
+            <button class="expand-btn" onclick="toggleCard(this)">Learn More</button>
+          </div>
+        </div>
+        <div class="platform-card">
+          <div class="platform-card-img"><img src="p12.jpg" alt="Sector Benchmarking"></div>
+          <div class="inner">
+            <div class="element-badge">Module 05</div>
+            <h3>Sector Benchmarking Network</h3>
+            <p>A federated learning architecture enabling anonymised fatigue risk data from thousands of UK organisations to continuously improve predictive models without sharing sensitive workforce data.</p>
+            <div class="more-text">Fatigue patterns from logistics hubs in the Midlands can improve safety intelligence for healthcare trusts in Manchester. Provides sector-specific benchmarks allowing organisations to compare their fatigue risk profile against industry standards.</div>
+            <button class="expand-btn" onclick="toggleCard(this)">Learn More</button>
+          </div>
+        </div>
+        <div class="platform-card">
+          <div class="platform-card-img"><img src="p13.jpg" alt="Incident Forensics"></div>
+          <div class="inner">
+            <div class="element-badge">Module 06</div>
+            <h3>Incident Forensics Engine</h3>
+            <p>Virtually reconstructs shift conditions at the time of any incident to determine the fatigue contribution  providing legally defensible root cause analysis for HSE investigations, insurance claims, and internal reviews.</p>
+            <div class="more-text">Human-in-the-Loop Safety Index provides a composite measure of organisational fatigue governance quality, converting manual incident review into an automated, evidence-based safety intelligence process.</div>
+            <button class="expand-btn" onclick="toggleCard(this)">Learn More</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div><!-- end page platform -->
+
+
+<!-- ═══════════════════════════════════════════
+     PAGE: MARKET
+═══════════════════════════════════════════════ -->
+<div class="page" id="page-market">
+  <section class="section-dark" style="padding-top:clamp(80px,12vw,120px);">
+    <div class="container">
+      <div class="label-tag">Market Analysis</div>
+      <h2 class="section-h2 white">A £12.4bn UK Safety Market. 200,000 At-Risk Employers. A Clear Gap.</h2>
+      <div class="section-divider divider-green"></div>
+      <p class="para-dark" style="max-width:700px;margin-bottom:40px;">The UK presents a structurally underserved market for intelligent fatigue risk management. With over 200,000 UK businesses in high-risk sectors  logistics, healthcare, manufacturing, construction  and no comprehensive AI-powered fatigue intelligence platform at SME pricing, the demand is both urgent and commercially validated.</p>
+
+      <div class="market-kpi">
+        <div class="mkt-card">
+          <div class="mkt-num">£12.4B</div>
+          <div class="mkt-lbl">UK Occupational Health & Safety technology market, growing at 18.2% CAGR to 2030</div>
+          <div class="mkt-source">UK Industry Data 2024</div>
+        </div>
+        <div class="mkt-card">
+          <div class="mkt-num">200K+</div>
+          <div class="mkt-lbl">UK employers in target sectors with shift-work populations and active fatigue risk exposure</div>
+          <div class="mkt-source">HSE Workforce Analysis 2024</div>
+        </div>
+        <div class="mkt-card">
+          <div class="mkt-num">76%</div>
+          <div class="mkt-lbl">Of UK organisations have no structured fatigue risk management system beyond basic WTR compliance</div>
+          <div class="mkt-source">2025 Safety Research</div>
+        </div>
+      </div>
+
+      <div class="charts-grid">
+        <div class="chart-card">
+          <div class="chart-title">UK Fatigue Risk Sources by Sector</div>
+          <div class="chart-sub">Primary contributors to fatigue-related incidents across UK industries</div>
+          <div class="chart-wrap"><canvas id="chartSector"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title">Fatigue Gap  Employer Risk Management</div>
+          <div class="chart-sub">Where UK employers fail to address fatigue before it becomes an incident</div>
+          <div class="chart-wrap"><canvas id="chartRootCause"></canvas></div>
+        </div>
+      </div>
+
+      <div class="chart-card-full">
+        <div class="chart-title">Competitive Positioning  UK Fatigue Management Landscape</div>
+        <div class="chart-sub">Fatigue Intelligence Group vs. existing platforms across key capability dimensions</div>
+        <div class="chart-wrap-lg"><canvas id="chartRadar"></canvas></div>
+      </div>
+
+      <div class="charts-grid">
+        <div class="chart-card">
+          <div class="chart-title">UK Occupational Safety & Fatigue Market Growth</div>
+          <div class="chart-sub">Market expansion trajectory in safety technology (USD Billion)</div>
+          <div class="chart-wrap"><canvas id="chartGrowth"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title">Fatigue Intelligence Group vs Competitors  Capability Score</div>
+          <div class="chart-sub">Feature coverage comparison across fatigue risk dimensions</div>
+          <div class="chart-wrap"><canvas id="chartPerf"></canvas></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div><!-- end page market -->
+
+
+<!-- ═══════════════════════════════════════════
+     PAGE: PRICING
+═══════════════════════════════════════════════ -->
+<div class="page" id="page-pricing">
+  <section style="background:var(--bg-black);padding:clamp(80px,12vw,120px) 0 clamp(60px,8vw,100px);">
+    <div class="container">
+      <div class="label-tag">Pricing Plans</div>
+      <h2 class="section-h2 green">Enterprise-Grade Fatigue Intelligence at SME-Optimised Pricing</h2>
+      <div class="section-divider divider-green"></div>
+      <p class="para-dark" style="max-width:640px;margin-bottom:48px;">Three subscription tiers designed to scale with your organisation's workforce complexity  from basic fatigue monitoring to full predictive intelligence and forensic governance. All plans include real-time dashboards, WTR compliance checking, and UK GDPR-compliant data architecture. No in-house safety scientists required.</p>
+
+      <div class="pricing-grid">
+        <div class="price-card">
+          <div class="price-tier">Starter Plan</div>
+          <h3>Safety Core</h3>
+          <p class="desc">For SMEs beginning their fatigue risk journey  structured monitoring and WTR compliance without complexity.</p>
+          <div class="price-amount">£120</div>
+          <div class="price-period">/ month · per organisation</div>
+          <div class="price-divider"></div>
+          <ul class="price-features">
+            <li><span class="chk">✓</span> Fatigue Risk Score monitoring (up to 50 workers)</li>
+            <li><span class="chk">✓</span> WTR compliance checking & alerts</li>
+            <li><span class="chk">✓</span> Basic shift safety dashboard</li>
+            <li><span class="chk">✓</span> Email & SMS risk alerts</li>
+            <li><span class="chk">✓</span> UK GDPR-compliant data storage</li>
+            <li><span class="chk">✓</span> Email support</li>
+          </ul>
+          <button class="price-btn price-btn-outline" onclick="showPage('contact')">Get Started →</button>
+        </div>
+        <div class="price-card featured">
+          <div class="price-tier">Pro Plan</div>
+          <h3>Risk Intelligence</h3>
+          <p class="desc">For logistics, manufacturing, and healthcare employers requiring predictive fatigue intelligence and biometric integration.</p>
+          <div class="price-amount">£420</div>
+          <div class="price-period">/ month · per organisation</div>
+          <div class="price-divider"></div>
+          <ul class="price-features">
+            <li><span class="chk">✓</span> Everything in Safety Core</li>
+            <li><span class="chk">✓</span> AI Predictive Fatigue Risk Engine</li>
+            <li><span class="chk">✓</span> Biometric & wearable integration</li>
+            <li><span class="chk">✓</span> Incident Forensics reporting</li>
+            <li><span class="chk">✓</span> Shift Intelligence & rota optimisation</li>
+            <li><span class="chk">✓</span> Priority onboarding support</li>
+          </ul>
+          <button class="price-btn price-btn-green" onclick="showPage('contact')">Request Demo →</button>
+        </div>
+        <div class="price-card">
+          <div class="price-tier">Enterprise Plan</div>
+          <h3>Safety Sovereign</h3>
+          <p class="desc">For multi-site organisations, NHS Trusts, and large logistics networks requiring full forensic governance and sector benchmarking.</p>
+          <div class="price-amount">£280</div>
+          <div class="price-period">/ month · per site + setup</div>
+          <div class="price-divider"></div>
+          <ul class="price-features">
+            <li><span class="chk">✓</span> Everything in Risk Intelligence</li>
+            <li><span class="chk">✓</span> Sector Benchmarking Network access</li>
+            <li><span class="chk">✓</span> HSE-ready forensic audit reports</li>
+            <li><span class="chk">✓</span> ISO 45003 compliance framework</li>
+            <li><span class="chk">✓</span> Dedicated account management</li>
+            <li><span class="chk">✓</span> Custom API & ERP integration</li>
+          </ul>
+          <button class="price-btn price-btn-outline" onclick="showPage('contact')">Contact Sales →</button>
+        </div>
+      </div>
+
+      <!-- Professional Services Add-ons -->
+      <div class="professional-services-wrapper" style="background:var(--card-bg);border:1px solid rgba(14,165,233,0.18);border-radius:14px;padding:28px;margin-bottom:48px;">
+        <div class="label-tag" style="margin-bottom:10px;">Professional Services Add-ons</div>
+        <div class="professional-services-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:16px;">
+          <div class="professional-service-card" style="padding:16px;background:rgba(14,165,233,0.06);border-radius:10px;border:1px solid rgba(14,165,233,0.15);">
+            <div style="font-family:var(--mono);font-size:9px;color:var(--teal-light);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;">One-Time</div>
+            <div style="font-family:var(--display);color:var(--white);font-size:18px;font-weight:700;margin-bottom:4px;">Safety Onboarding</div>
+            <div style="font-family:var(--display);color:var(--teal-light);font-size:24px;font-weight:800;">£600</div>
+            <div style="color:var(--txt-secondary);font-size:12px;margin-top:6px;">Platform setup, biometric calibration & workforce fatigue baseline assessment</div>
+          </div>
+          <div class="professional-service-card" style="padding:16px;background:rgba(14,165,233,0.06);border-radius:10px;border:1px solid rgba(14,165,233,0.15);">
+            <div style="font-family:var(--mono);font-size:9px;color:var(--teal-light);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;">Assessment</div>
+            <div style="font-family:var(--display);color:var(--white);font-size:18px;font-weight:700;margin-bottom:4px;">Fatigue Risk Audit</div>
+            <div style="font-family:var(--display);color:var(--teal-light);font-size:24px;font-weight:800;">£750</div>
+            <div style="color:var(--txt-secondary);font-size:12px;margin-top:6px;">Comprehensive fatigue risk audit of existing rotas, shift patterns & incident history</div>
+          </div>
+          <div class="professional-service-card" style="padding:16px;background:rgba(245,158,11,0.06);border-radius:10px;border:1px solid rgba(245,158,11,0.2);">
+            <div style="font-family:var(--mono);font-size:9px;color:var(--amber-light);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;">Variable</div>
+            <div style="font-family:var(--display);color:var(--white);font-size:18px;font-weight:700;margin-bottom:4px;">Strategic Safety License</div>
+            <div style="font-family:var(--display);color:var(--amber-light);font-size:24px;font-weight:800;">Custom</div>
+            <div style="color:var(--txt-secondary);font-size:12px;margin-top:6px;">Licensing for regional health networks, NHS frameworks, or sector safety partnerships</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ -->
+      <div class="label-tag">Frequently Asked Questions</div>
+      <h3 style="font-family:var(--display);color:var(--white);font-size:clamp(22px,2.5vw,34px);font-weight:800;margin-bottom:28px;">Common Questions About Fatigue Intelligence Group</h3>
+      <div class="faq-wrap">
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFAQ(this)"><h4>What is fatigue risk management and why does it matter for UK employers?</h4><span class="faq-icon">+</span></div>
+          <div class="faq-body">Fatigue risk management is the process of identifying, monitoring, and mitigating the safety risks posed by worker fatigue in shift-based and high-demand roles. UK employers have a duty of care under the Health and Safety at Work Act 1974 and the Working Time Regulations 1998 to ensure workers are not placed at risk from fatigue. Fatigue Intelligence Group operationalises that duty  turning it from a paper policy into a live, evidence-based safety system.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFAQ(this)"><h4>Which sectors does Fatigue Intelligence Group serve?</h4><span class="faq-icon">+</span></div>
+          <div class="faq-body">Our platform is designed for any UK organisation with shift-based workforces or high-demand roles: logistics and supply chain (warehouse, transport, distribution), healthcare (NHS Trusts, care homes, emergency services), manufacturing and industrial, construction, and security services. Phase 1 focuses on logistics and healthcare  the two sectors with the highest documented fatigue-related incident rates in the UK.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFAQ(this)"><h4>Is Fatigue Intelligence Group compliant with UK data protection requirements?</h4><span class="faq-icon">+</span></div>
+          <div class="faq-body">Yes. Fatigue Intelligence Group is architecturally designed to comply with UK GDPR, ICO guidance on health data processing, and ISO 45003 (Psychological Health & Safety at Work). Biometric and health data is processed under explicit consent frameworks, with full data subject rights built into the platform. All fatigue reports are generated in formats suitable for HSE inspection, employment tribunal, and insurance purposes.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div><!-- end page pricing -->
+
+
+<!-- ═══════════════════════════════════════════
+     PAGE: PROCESS
+═══════════════════════════════════════════════ -->
+<div class="page" id="page-process">
+  <!-- HERO BAND -->
+  <section style="background:linear-gradient(160deg,var(--bg-black) 0%,var(--bg-deep) 50%,var(--bg-dark) 100%);padding:clamp(80px,12vw,120px) 0 clamp(60px,8vw,80px);position:relative;overflow:hidden;">
+    <div class="container" style="position:relative;z-index:1;">
+      <div class="label-tag">How It Works</div>
+      <h2 class="section-h2 dark">From Reactive Safety<br>to <span style="color:var(--teal-light);">Predictive Intelligence</span></h2>
+      <div class="section-divider divider-green"></div>
+      <p class="para-dark" style="max-width:680px;margin-bottom:40px;">Fatigue Intelligence Group operates as a closed-loop safety intelligence lifecycle  capturing, scoring, predicting, and continuously evolving your organisation's fatigue risk data so every shift decision is informed by real intelligence, not guesswork.</p>
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="showPage('contact')">Request a Demo →</button>
+        <button class="btn-secondary" onclick="showPage('platform')">Explore Modules</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEP-BY-STEP -->
+  <section class="section-dark" style="padding-top:clamp(60px,8vw,96px);">
+    <div class="container">
+      <div class="label-tag">The 6-Phase Lifecycle</div>
+      <h2 class="section-h2 white">A Complete Safety Intelligence Loop  Not Just a Dashboard</h2>
+      <div class="section-divider divider-green"></div>
+
+      <!-- Phase 1 -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,72px);align-items:center;margin-bottom:clamp(56px,8vw,96px);">
+        <div>
+          <div style="font-family:var(--mono);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--teal-light);margin-bottom:12px;">Phase 01 · Assess</div>
+          <h3 style="font-family:var(--display);font-size:clamp(22px,2.5vw,32px);font-weight:800;color:var(--white);margin-bottom:16px;line-height:1.2;">Establish Your Fatigue Risk Baseline</h3>
+          <p style="color:var(--txt-secondary);font-size:15px;line-height:1.8;margin-bottom:18px;">Fatigue Intelligence Group ingests your existing shift patterns, rotas, and incident history to establish a comprehensive fatigue risk baseline for your organisation. No manual data entry. No disruption to existing systems.</p>
+          <p style="color:var(--txt-secondary);font-size:15px;line-height:1.8;margin-bottom:24px;">The Assessment phase surfaces the hidden cost of unmanaged fatigue  giving you a precise, data-driven view of your current safety posture before a single schedule is changed.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:10px;">
+            <span class="risk-badge risk-green"><span class="risk-dot"></span>Automated Data Ingestion</span>
+            <span class="risk-badge risk-blue"><span class="risk-dot"></span>Risk Baseline Report</span>
+            <span class="risk-badge risk-green"><span class="risk-dot"></span>Zero Disruption</span>
+          </div>
+        </div>
+        <div>
+          <div style="width:100%;aspect-ratio:16/10;border-radius:16px;border:1px solid rgba(14,165,233,0.15);overflow:hidden;box-shadow:0 8px 32px rgba(14,165,233,0.1);">
+            <img src="p14.jpg" alt="Phase 01 – Assess" style="width:100%;height:100%;object-fit:cover;">
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 2 -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,72px);align-items:center;margin-bottom:clamp(56px,8vw,96px);">
+        <div>
+          <div style="width:100%;aspect-ratio:16/10;border-radius:16px;border:1px solid rgba(245,158,11,0.2);overflow:hidden;box-shadow:0 8px 32px rgba(245,158,11,0.08);">
+            <img src="p15.jpg" alt="Phase 02 – Monitor" style="width:100%;height:100%;object-fit:cover;">
+          </div>
+        </div>
+        <div>
+          <div style="font-family:var(--mono);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--amber-light);margin-bottom:12px;">Phase 02 · Monitor</div>
+          <h3 style="font-family:var(--display);font-size:clamp(22px,2.5vw,32px);font-weight:800;color:var(--white);margin-bottom:16px;line-height:1.2;">Real-Time Fatigue Risk Monitoring  Every Shift</h3>
+          <p style="color:var(--txt-secondary);font-size:15px;line-height:1.8;margin-bottom:18px;">The Monitoring Engine constructs a live fatigue risk map of every active shift in your organisation  from role to individual  highlighting workers approaching dangerous fatigue thresholds in real time, with automated manager alerts.</p>
+          <p style="color:var(--txt-secondary);font-size:15px;line-height:1.8;margin-bottom:24px;">Think of it as a safety X-ray for your workforce: objective, continuous, and actionable. Every shift is scored for fatigue risk before, during, and after.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:10px;">
+            <span class="risk-badge risk-amber"><span class="risk-dot"></span>Live Risk Dashboard</span>
+            <span class="risk-badge risk-green"><span class="risk-dot"></span>Automated Alerts</span>
+            <span class="risk-badge risk-amber"><span class="risk-dot"></span>Individual Scoring</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 3 -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,72px);align-items:center;margin-bottom:clamp(56px,8vw,96px);">
+        <div>
+          <div style="font-family:var(--mono);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--teal-light);margin-bottom:12px;">Phase 03 · Predict</div>
+          <h3 style="font-family:var(--display);font-size:clamp(22px,2.5vw,32px);font-weight:800;color:var(--white);margin-bottom:16px;line-height:1.2;">Predict Dangerous Fatigue Before It Happens</h3>
+          <p style="color:var(--txt-secondary);font-size:15px;line-height:1.8;margin-bottom:18px;">The AI Fatigue Risk Engine uses historical patterns, biometric inputs, and shift data to predict dangerous fatigue states 24–72 hours in advance  giving managers time to intervene before risk becomes reality.</p>
+          <p style="color:var(--txt-secondary);font-size:15px;line-height:1.8;margin-bottom:24px;">When a high-performing worker begins showing the early fatigue signature of an at-risk incident, Fatigue Intelligence Group captures and codifies that signal  enabling proactive intervention, not reactive investigation.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:10px;">
+            <span class="risk-badge risk-green"><span class="risk-dot"></span>72-Hour Prediction</span>
+            <span class="risk-badge risk-green"><span class="risk-dot"></span>Early Warning System</span>
+            <span class="risk-badge risk-blue"><span class="risk-dot"></span>Proactive Intervention</span>
+          </div>
+        </div>
+        <div>
+          <div style="width:100%;aspect-ratio:16/10;border-radius:16px;border:1px solid rgba(14,165,233,0.15);overflow:hidden;box-shadow:0 8px 32px rgba(14,165,233,0.1);">
+            <img src="p16.jpg" alt="Phase 03 – Predict" style="width:100%;height:100%;object-fit:cover;">
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 4 -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,72px);align-items:center;margin-bottom:clamp(56px,8vw,96px);">
+        <div>
+          <div style="width:100%;aspect-ratio:16/10;border-radius:16px;border:1px solid rgba(245,158,11,0.2);overflow:hidden;box-shadow:0 8px 32px rgba(245,158,11,0.08);">
+            <img src="p17.jpg" alt="Phase 04 – Intervene" style="width:100%;height:100%;object-fit:cover;">
+          </div>
+        </div>
+        <div>
+          <div style="font-family:var(--mono);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--amber-light);margin-bottom:12px;">Phase 04 · Intervene</div>
+          <h3 style="font-family:var(--display);font-size:clamp(22px,2.5vw,32px);font-weight:800;color:var(--white);margin-bottom:16px;line-height:1.2;">Deploy Intelligent Interventions  Automatically</h3>
+          <p style="color:var(--txt-secondary);font-size:15px;line-height:1.8;margin-bottom:18px;">Fatigue-triggered workflow automation converts a high-risk alert into a structured intervention sequence automatically  recommended rest breaks, shift reassignment suggestions, and manager escalation  without requiring manual coordination.</p>
+          <p style="color:var(--txt-secondary);font-size:15px;line-height:1.8;margin-bottom:24px;">The platform deploys intelligent scheduling guidance across your operations  ensuring every shift decision follows the proven safe scheduling logic, regardless of who is managing the rota.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:10px;">
+            <span class="risk-badge risk-amber"><span class="risk-dot"></span>Auto Intervention</span>
+            <span class="risk-badge risk-green"><span class="risk-dot"></span>Schedule Optimisation</span>
+            <span class="risk-badge risk-amber"><span class="risk-dot"></span>Manager Escalation</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 5 -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,72px);align-items:center;margin-bottom:clamp(56px,8vw,96px);">
+        <div>
+          <div style="font-family:var(--mono);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--teal-light);margin-bottom:12px;">Phase 05 · Comply</div>
+          <h3 style="font-family:var(--display);font-size:clamp(22px,2.5vw,32px);font-weight:800;color:var(--white);margin-bottom:16px;line-height:1.2;">Automated Compliance  Every Shift, Every Role</h3>
+          <p style="color:var(--txt-secondary);font-size:15px;line-height:1.8;margin-bottom:18px;">The Compliance Automation Engine watches every active shift for WTR breaches, insufficient rest periods, and excessive consecutive nights  alerting you before a regulatory breach, not after the HSE inspector arrives.</p>
+          <p style="color:var(--txt-secondary);font-size:15px;line-height:1.8;margin-bottom:24px;">Every shift interaction is logged with a high-fidelity audit trail, generating compliance-ready reports aligned with HSE fatigue guidance and ISO 45003. Replaces the 76% manual compliance checking overhead with automated governance.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:10px;">
+            <span class="risk-badge risk-green"><span class="risk-dot"></span>WTR Checking</span>
+            <span class="risk-badge risk-blue"><span class="risk-dot"></span>Live Audit Trail</span>
+            <span class="risk-badge risk-green"><span class="risk-dot"></span>HSE-Ready Reports</span>
+          </div>
+        </div>
+        <div>
+          <div style="width:100%;aspect-ratio:16/10;border-radius:16px;border:1px solid rgba(14,165,233,0.15);overflow:hidden;box-shadow:0 8px 32px rgba(14,165,233,0.1);">
+            <img src="p18.jpg" alt="Phase 05 – Comply" style="width:100%;height:100%;object-fit:cover;">
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 6 -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,72px);align-items:center;margin-bottom:clamp(56px,8vw,96px);">
+        <div>
+          <div style="width:100%;aspect-ratio:16/10;border-radius:16px;border:1px solid rgba(245,158,11,0.2);overflow:hidden;box-shadow:0 8px 32px rgba(245,158,11,0.08);">
+            <img src="p19.jpg" alt="Phase 06 – Evolve" style="width:100%;height:100%;object-fit:cover;">
+          </div>
+        </div>
+        <div>
+          <div style="font-family:var(--mono);font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--amber-light);margin-bottom:12px;">Phase 06 · Evolve</div>
+          <h3 style="font-family:var(--display);font-size:clamp(22px,2.5vw,32px);font-weight:800;color:var(--white);margin-bottom:16px;line-height:1.2;">Continuously Learn & Evolve With Your Organisation</h3>
+          <p style="color:var(--txt-secondary);font-size:15px;line-height:1.8;margin-bottom:18px;">The Outcome-Learning Safety Memory closes the loop  linking every fatigue intervention to incident outcomes and automatically prioritising the risk management patterns that deliver the highest safety returns. Your platform gets smarter with every shift.</p>
+          <p style="color:var(--txt-secondary);font-size:15px;line-height:1.8;margin-bottom:24px;">The Sector Benchmarking Network further enriches your models with anonymised benchmarks from thousands of UK organisations  ensuring your fatigue intelligence stays ahead of the risk curve as working patterns evolve.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:10px;">
+            <span class="risk-badge risk-amber"><span class="risk-dot"></span>Outcome-Learning Memory</span>
+            <span class="risk-badge risk-green"><span class="risk-dot"></span>Self-Optimising Models</span>
+            <span class="risk-badge risk-amber"><span class="risk-dot"></span>Sector Benchmarking</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- TIMELINE STRIP -->
+  <section style="background:var(--bg-black);padding:clamp(60px,8vw,96px) 0;">
+    <div class="container">
+      <div class="label-tag">Implementation Timeline</div>
+      <h2 class="section-h2 dark">Up and Running in <span style="color:var(--teal-light);">6 Weeks</span></h2>
+      <div class="section-divider divider-green"></div>
+      <div class="impl-timeline">
+        <div class="impl-step">
+          <div class="impl-dot-col"><div class="impl-dot impl-dot-purple"></div><div class="impl-line"></div></div>
+          <div class="impl-card" data-step="01">
+            <div class="impl-week" style="color:var(--teal-light);">Week 1–2</div>
+            <div class="impl-title">Onboard & Connect</div>
+            <p class="impl-body">Platform activation, shift data ingestion, HR system integration, and secure fatigue risk configuration. Zero downtime to existing operations.</p>
+            <div class="impl-tags"><span class="risk-badge risk-green"><span class="risk-dot"></span>API Setup</span><span class="risk-badge risk-green"><span class="risk-dot"></span>Zero Downtime</span></div>
+          </div>
+        </div>
+        <div class="impl-step">
+          <div class="impl-dot-col"><div class="impl-dot impl-dot-blue"></div><div class="impl-line"></div></div>
+          <div class="impl-card" data-step="02">
+            <div class="impl-week" style="color:var(--amber-light);">Week 3–4</div>
+            <div class="impl-title">Assess & Score</div>
+            <p class="impl-body">Live monitoring begins. Your fatigue risk baseline is established, individual risk profiles are created, and your Workforce Safety Score is calculated.</p>
+            <div class="impl-tags"><span class="risk-badge risk-amber"><span class="risk-dot"></span>Live Monitoring</span><span class="risk-badge risk-amber"><span class="risk-dot"></span>Safety Score</span></div>
+          </div>
+        </div>
+        <div class="impl-step">
+          <div class="impl-dot-col"><div class="impl-dot impl-dot-purple"></div><div class="impl-line"></div></div>
+          <div class="impl-card" data-step="03">
+            <div class="impl-week" style="color:var(--teal-light);">Week 5</div>
+            <div class="impl-title">Predict & Intervene</div>
+            <p class="impl-body">Predictive models are calibrated to your workforce. Automated intervention workflows are activated. Managers begin receiving 72-hour advance fatigue alerts.</p>
+            <div class="impl-tags"><span class="risk-badge risk-green"><span class="risk-dot"></span>Predictive AI</span><span class="risk-badge risk-green"><span class="risk-dot"></span>Auto Alerts</span></div>
+          </div>
+        </div>
+        <div class="impl-step">
+          <div class="impl-dot-col"><div class="impl-dot impl-dot-blue"></div></div>
+          <div class="impl-card" data-step="04">
+            <div class="impl-week" style="color:var(--amber-light);">Week 6</div>
+            <div class="impl-title">Comply & Evolve</div>
+            <p class="impl-body">Full compliance automation is live. HSE-ready audit reports are generated. The platform begins its continuous learning cycle  getting smarter with every shift.</p>
+            <div class="impl-tags"><span class="risk-badge risk-amber"><span class="risk-dot"></span>WTR Compliance</span><span class="risk-badge risk-amber"><span class="risk-dot"></span>Continuous Learning</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div><!-- end page process -->
+
+
+<!-- ═══════════════════════════════════════════
+     PAGE: FAQ
+═══════════════════════════════════════════════ -->
+<div class="page" id="page-faq">
+  <section class="section-dark" style="padding-top:clamp(80px,12vw,120px);">
+    <div class="container">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,6vw,80px);align-items:start;">
+        <div>
+          <div class="label-tag">FAQ</div>
+          <h2 class="section-h2 white">Everything You Need to Know About Fatigue Intelligence</h2>
+          <div class="section-divider divider-green"></div>
+          <p class="para-dark" style="margin-bottom:36px;">Got questions about how Fatigue Intelligence Group works, what sectors we serve, or how we handle sensitive workforce data? We've answered the most common ones below.</p>
+          <div class="faq-wrap">
+            <div class="faq-item">
+              <div class="faq-q" onclick="toggleFAQ(this)"><h4>Which industries does Fatigue Intelligence Group serve?</h4><span class="faq-icon">+</span></div>
+              <div class="faq-body">Fatigue Intelligence Group is designed for any UK employer with shift-based workers or high-demand roles. Primary sectors include logistics and distribution (warehouse, transport, last-mile), healthcare (NHS Trusts, care homes, emergency services), manufacturing, construction, and security operations. Our Phase 1 pilot focuses on logistics and healthcare  the sectors with the highest documented fatigue incident rates and the clearest ROI from predictive fatigue management.</div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q" onclick="toggleFAQ(this)"><h4>Is Fatigue Intelligence Group only available in London?</h4><span class="faq-icon">+</span></div>
+              <div class="faq-body">Phase 1 pilots are focused on London and the South East to build UK-specific sector benchmarks and validate core assumptions in a concentrated market. From Year 2, the platform will expand nationally to Manchester, Birmingham, Bristol, and other major UK logistics and healthcare hubs. By Year 3, all UK regions will be served, with EU expansion planned for high-risk industrial sectors in Germany, the Netherlands, and Scandinavia.</div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q" onclick="toggleFAQ(this)"><h4>How does Fatigue Intelligence Group compare to basic WTR compliance tools?</h4><span class="faq-icon">+</span></div>
+              <div class="faq-body">Basic WTR compliance tools check whether shifts meet minimum legal rest requirements  but they cannot predict fatigue risk, integrate biometric data, perform incident forensics, or benchmark your organisation against sector peers. Fatigue Intelligence Group unifies risk prediction, real-time monitoring, compliance automation, and forensic investigation into a single closed-loop platform  delivering the safety intelligence that reactive compliance tools cannot provide.</div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="label-tag">More Questions</div>
+          <h3 style="font-family:var(--display);color:var(--white);font-size:clamp(20px,2vw,28px);font-weight:800;margin-bottom:24px;">Advanced Platform Questions</h3>
+          <div class="faq-wrap">
+            <div class="faq-item">
+              <div class="faq-q" onclick="toggleFAQ(this)"><h4>How does the biometric integration work?</h4><span class="faq-icon">+</span></div>
+              <div class="faq-body">Fatigue Intelligence Group integrates with leading wearable devices via open APIs  including Garmin Health, Fitbit for Enterprise, Whoop, and access control systems. Data flows securely into the fatigue risk model under explicit worker consent frameworks, with full data subject rights and anonymisation controls. No biometric data is shared with employers without worker consent; the platform outputs a risk score, not raw physiological data.</div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q" onclick="toggleFAQ(this)"><h4>Can Fatigue Intelligence Group integrate with our existing HR or scheduling systems?</h4><span class="faq-icon">+</span></div>
+              <div class="faq-body">Yes. Our platform offers pre-built integrations with SAP HR, Workday, BambooHR, Kronos Workforce Management, and leading rota platforms. For bespoke systems, our RESTful API allows integration with any HR, scheduling, or ERP platform. The Risk Intelligence and Safety Sovereign plans include full integration support as part of onboarding.</div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q" onclick="toggleFAQ(this)"><h4>What does an HSE-ready forensic report look like?</h4><span class="faq-icon">+</span></div>
+              <div class="faq-body">Our forensic incident reports reconstruct the exact shift conditions  fatigue scores, rest periods, cumulative hours, biometric markers if available  at the time of any safety incident or near-miss. Reports are structured to meet HSE investigation standards, suitable for RIDDOR submissions, employment tribunal proceedings, and insurance claims. Reports are generated in PDF and structured data formats, exportable on demand.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ Bottom Banner -->
+      <div style="width:100%;margin-top:40px;aspect-ratio:21/5;border-radius:16px;border:1px solid rgba(14,165,233,0.12);overflow:hidden;box-shadow:0 4px 24px rgba(14,165,233,0.06);">
+        <img src="p23.jpg" alt="Fatigue Intelligence Group team" style="width:100%;height:100%;object-fit:cover;">
+      </div>
+    </div>
+  </section>
+
+  <!-- STILL HAVE QUESTIONS CTA -->
+  <section style="background:var(--bg-black);padding:clamp(56px,7vw,80px) 0;border-top:1px solid rgba(14,165,233,0.08);">
+    <div class="container">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,72px);align-items:center;">
+        <div>
+          <div class="label-tag">Still Have Questions?</div>
+          <h2 class="section-h2 dark">Talk Directly to <span style="color:var(--teal-light);">Jia</span></h2>
+          <div class="section-divider divider-green"></div>
+          <p class="para-dark" style="margin-bottom:28px;">As founder and CEO, Jia personally leads every pilot onboarding and is available to walk through the platform, answer technical questions, or explore whether Fatigue Intelligence Group is the right fit for your organisation. No sales team. No automated sequences. Just a direct conversation with the person who built it.</p>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;">
+            <button class="btn-primary" onclick="showPage('contact')">Book a Conversation →</button>
+            <button class="btn-secondary" onclick="showPage('pricing')">View Pricing</button>
+          </div>
+        </div>
+        <div>
+          <div style="width:100%;aspect-ratio:4/3;border-radius:16px;border:1px solid rgba(14,165,233,0.15);overflow:hidden;box-shadow:0 8px 32px rgba(14,165,233,0.1);">
+            <img src="pp1.jpg" alt="Jia – Founder & CEO, Fatigue Intelligence Group" style="width:100%;height:100%;object-fit:cover;">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div><!-- end page faq -->
+
+
+<!-- ═══════════════════════════════════════════
+     PAGE: CONTACT
+═══════════════════════════════════════════════ -->
+<div class="page" id="page-contact">
+  <section class="section-dark" style="padding-top:clamp(80px,12vw,120px);">
+    <div class="container">
+      <div class="label-tag">Get In Touch</div>
+      <h2 class="section-h2 white">Start Your Fatigue Intelligence Journey</h2>
+      <div class="section-divider divider-green"></div>
+      <div class="contact-grid">
+        <div>
+          <p class="contact-left-para">Ready to see how Fatigue Intelligence Group can protect your workforce, reduce incidents, and automate your compliance obligations? Book a live platform demo and discover how predictive fatigue intelligence transforms your safety operations.</p>
+          <p class="contact-left-para" style="margin-bottom:28px;">Request a live platform walkthrough and discover how Fatigue Intelligence Group can transform reactive safety management into a permanent, evidence-based Workforce Safety Intelligence asset  reducing incident risk, ensuring regulatory compliance, and delivering quantifiable ROI.</p>
+
+          <div class="contact-item">
+            <div class="contact-icon violet-icon"><i class="fas fa-envelope"></i></div>
+            <div class="contact-item-text">
+              <strong>Email</strong>
+              <span>mohhamadjiakhan2000@gmail.com</span>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon violet-icon"><i class="fas fa-phone"></i></div>
+            <div class="contact-item-text">
+              <strong>Phone</strong>
+              <span>07440571772</span>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon violet-icon"><i class="fas fa-location-dot"></i></div>
+            <div class="contact-item-text">
+              <strong>Location</strong>
+              <span>Peterborough, United Kingdom · Willing to Relocate · Available Immediately</span>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon violet-icon"><i class="fas fa-shield-halved"></i></div>
+            <div class="contact-item-text">
+              <strong>Compliance</strong>
+              <span>UK GDPR · HSE Standards · ISO 45003 · WTR Compliant</span>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon violet-icon"><i class="fas fa-link"></i></div>
+            <div class="contact-item-text">
+              <strong>Integrations</strong>
+              <span>SAP · Workday · Kronos · BambooHR · Garmin Health · Whoop</span>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon violet-icon"><i class="fas fa-fingerprint"></i></div>
+            <div class="contact-item-text">
+              <strong>Certifications</strong>
+              <span>Lean Six Sigma · SAP Supply Chain · H&S Awareness · Microsoft Certified</span>
+            </div>
+          </div>
+        </div>
+
+      <form class="contact-form-card"
+      action="https://api.web3forms.com/submit"
+      method="POST">
+
+  <!-- WEB3FORMS ACCESS KEY -->
+  <input type="hidden"
+         name="access_key"
+         value="6168ba9c-0976-46ff-9079-3f90d355b0a0">
+
+  <!-- OPTIONAL SETTINGS -->
+  <input type="hidden"
+         name="subject"
+         value="New Demo Request">
+
+  <input type="hidden"
+         name="from_name"
+         value="Hospitality Intelligence Hub">
+
+  <!-- SPAM PROTECTION -->
+  <input type="checkbox"
+         name="botcheck"
+         class="hidden"
+         style="display:none;">
+
+  <h3>Request a Demo</h3>
+
+  <div class="form-group">
+    <label class="form-label">Full Name</label>
+
+    <input type="text"
+           name="name"
+           class="form-ctrl"
+           placeholder="Your full name"
+           required>
+  </div>
+
+  <div class="form-group">
+    <label class="form-label">Business Name</label>
+
+    <input type="text"
+           name="business"
+           class="form-ctrl"
+           placeholder="Restaurant or hospitality group"
+           required>
+  </div>
+
+  <div class="form-group">
+    <label class="form-label">Email Address</label>
+
+    <input type="email"
+           name="email"
+           class="form-ctrl"
+           placeholder="your@email.com"
+           required>
+  </div>
+
+  <div class="form-group">
+    <label class="form-label">Business Type</label>
+
+    <select name="business_type"
+            class="form-ctrl"
+            required>
+
+      <option value="">Select business type</option>
+      <option>Independent Restaurant</option>
+      <option>Café / Coffee Shop</option>
+      <option>Gastropub</option>
+      <option>Restaurant Group</option>
+      <option>Cloud Kitchen</option>
+      <option>Hospitality Franchise</option>
+
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label class="form-label">Current Challenge</label>
+
+    <select name="challenge"
+            class="form-ctrl"
+            required>
+
+      <option value="">Select your biggest challenge</option>
+      <option>Can't track social media ROI</option>
+      <option>High no-show rates</option>
+      <option>Disconnected reservation & POS data</option>
+      <option>Influencer campaign attribution</option>
+      <option>Operational strain during peak demand</option>
+      <option>Guest retention & loyalty issues</option>
+
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label class="form-label">Message</label>
+
+    <textarea name="message"
+              class="form-ctrl ta"
+              required
+              placeholder="Tell us about your venue, current operational challenges, and what you'd like to improve..."></textarea>
+  </div>
+
+  <button class="form-submit"
+          type="submit">
+
+    Request Platform Demo →
+
+  </button>
+
+</form>
+      </div>
+    </div>
+  </section>
+</div><!-- end page contact -->
+
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer>
+  <div class="footer-inner">
+   
+
+    <div class="footer-top-band">
+      <div>
+        <div class="footer-brand-logo">Fatigue Intelligence Group</div>
+        <p class="footer-brand-desc">The UK's premier AI-driven Fatigue Risk Management & Workforce Safety Intelligence Platform  transforming reactive safety management into predictive, evidence-based workforce intelligence through a closed-loop fatigue lifecycle that captures, scores, predicts, and governs fatigue risk across high-risk UK sectors.</p>
+        <div class="footer-tagline">Assess · Monitor · Predict · Protect</div>
+        <div class="footer-badges" style="margin-top:16px;">
+          <span class="footer-badge">UK GDPR Compliant</span>
+          <span class="footer-badge">HSE Standards</span>
+          <span class="footer-badge">ISO 45003</span>
+          <span class="footer-badge">WTR Compliant</span>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Platform</div>
+        <div class="footer-col">
+          <a onclick="showPage('platform')">AI Fatigue Risk Scoring</a>
+          <a onclick="showPage('platform')">Predictive Shift Intelligence</a>
+          <a onclick="showPage('platform')">Biometric Integration</a>
+          <a onclick="showPage('platform')">Compliance Automation</a>
+          <a onclick="showPage('platform')">Sector Benchmarking</a>
+          <a onclick="showPage('platform')">Incident Forensics Engine</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <div class="footer-col">
+          <a onclick="showPage('about')">About Fatigue Intelligence Group</a>
+          <a onclick="showPage('about')">Founder  Jia</a>
+          <a onclick="showPage('process')">How It Works</a>
+          <a onclick="showPage('faq')">FAQ</a>
+          <a onclick="showPage('market')">Market Analysis</a>
+          <a onclick="showPage('pricing')">Pricing & Plans</a>
+          <a onclick="showPage('contact')">Request a Demo</a>
+          <a onclick="showPage('contact')">Pilot Programme</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Solutions</div>
+        <div class="footer-col">
+          <a onclick="showPage('platform')">Logistics & Distribution</a>
+          <a onclick="showPage('platform')">Healthcare & NHS</a>
+          <a onclick="showPage('platform')">Manufacturing</a>
+          <a onclick="showPage('platform')">Construction</a>
+          <a onclick="showPage('pricing')">Safety Core Plan</a>
+          <a onclick="showPage('pricing')">Risk Intelligence Plan</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom-bar">
+      <p>© 2026 <span>Fatigue Intelligence Group</span> · Peterborough, UK · UK GDPR Compliant · HSE Standards · ISO 45003 Aligned</p>
+      <div class="footer-bottom-links">
+        <a onclick="showPage('contact')">Privacy Policy</a>
+        <a onclick="showPage('contact')">Terms of Service</a>
+        <a onclick="showPage('contact')">Confidential Business Plan</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ═══════════ JAVASCRIPT ═══════════ -->
+<script>
+/* ─── PAGE NAV ───────────────────────────────── */
+function showPage(name){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-links button').forEach(b=>b.classList.remove('active'));
+  const pg=document.getElementById('page-'+name);
+  if(pg){pg.classList.add('active');}
+  const btn=document.getElementById('nav-'+name);
+  if(btn){btn.classList.add('active');}
+  window.scrollTo({top:0,behavior:'instant'});
+  if(name==='market'&&!window.marketChartsLoaded){initMarketCharts();window.marketChartsLoaded=true;}
+}
+
+function toggleCard(btn){
+  const card=btn.closest('.platform-card');
+  card.classList.toggle('open');
+  btn.innerHTML=card.classList.contains('open')?'Show Less':'Learn More';
+}
+
+function toggleFAQ(el){el.parentElement.classList.toggle('open');}
+
+function closeMobile(){
+  document.getElementById('mobileNav').classList.remove('open');
+  document.getElementById('hamburger').classList.remove('open');
+}
+
+document.getElementById('hamburger').addEventListener('click',function(){
+  this.classList.toggle('open');
+  document.getElementById('mobileNav').classList.toggle('open');
+});
+
+/* ─── CHART THEME ────────────────────────────── */
+const TEAL='rgba(14,165,233,1)';
+const TEAL2='rgba(14,165,233,0.75)';
+const TEAL3='rgba(14,165,233,0.4)';
+const AMBER='rgba(245,158,11,0.9)';
+const AMBER2='rgba(252,211,77,0.7)';
+const GRID='rgba(14,165,233,0.06)';
+const MUTED='rgba(100,160,200,0.75)';
+
+Chart.defaults.font.family="'IBM Plex Mono', monospace";
+Chart.defaults.font.size=11;
+Chart.defaults.color=MUTED;
+
+/* ─── MARKET CHARTS ──────────────────────────── */
+function initMarketCharts(){
+  // Fatigue Risk Sources
+  new Chart(document.getElementById('chartSector').getContext('2d'),{
+    type:'bar',
+    data:{
+      labels:['Excessive Shift Length','Insufficient Rest Periods','Night Shift Rotation','Manual Schedule Planning','No Biometric Monitoring','Lack of Compliance Checks'],
+      datasets:[{
+        label:'% of Fatigue Risk Contribution',
+        data:[52,44,38,28,22,18],
+        backgroundColor:[TEAL,TEAL2,TEAL3,'rgba(14,165,233,0.25)',AMBER2,'rgba(245,158,11,0.4)'],
+        borderRadius:5,barPercentage:0.6
+      }]
+    },
+    options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{grid:{color:GRID},ticks:{color:MUTED,callback:v=>v+'%'}},y:{grid:{display:false},ticks:{color:MUTED,font:{size:10}}}}}
+  });
+
+  // Fatigue Gap
+  new Chart(document.getElementById('chartRootCause').getContext('2d'),{
+    type:'doughnut',
+    data:{
+      labels:['No Predictive Fatigue System (42%)','Manual WTR Checking Only (35%)','No Biometric Integration (28%)','Reactive Incident Management (38%)','No Sector Benchmarking (22%)'],
+      datasets:[{
+        data:[42,35,28,38,22],
+        backgroundColor:[TEAL,'rgba(14,165,233,0.7)',TEAL3,AMBER2,'rgba(245,158,11,0.5)'],
+        borderColor:['rgba(14,165,233,0.9)','rgba(14,165,233,0.7)','rgba(14,165,233,0.45)','rgba(245,158,11,0.7)','rgba(245,158,11,0.55)'],
+        borderWidth:1.5
+      }]
+    },
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{color:MUTED,boxWidth:10,padding:10,font:{size:10}}}}}
+  });
+
+  // Radar Competitive
+  new Chart(document.getElementById('chartRadar').getContext('2d'),{
+    type:'radar',
+    data:{
+      labels:['Predictive Fatigue Scoring','Biometric Integration','Incident Forensics','Compliance Automation','Sector Benchmarking','Real-Time Monitoring'],
+      datasets:[
+        {label:'Fatigue Intelligence Group',data:[5,5,5,5,5,5],backgroundColor:'rgba(14,165,233,0.1)',borderColor:TEAL,borderWidth:2,pointBackgroundColor:TEAL},
+        {label:'Basic WTR Compliance Tools',data:[1,1,1,2,1,1],backgroundColor:'rgba(245,158,11,0.06)',borderColor:AMBER2,borderWidth:1.5,pointBackgroundColor:AMBER2},
+        {label:'Generic HR Platforms',data:[2,1,1,2,1,2],backgroundColor:'rgba(100,180,255,0.05)',borderColor:'rgba(100,180,255,0.5)',borderWidth:1.5,pointBackgroundColor:'rgba(100,180,255,0.5)'},
+        {label:'Manual Safety Management',data:[1,1,1,1,1,1],backgroundColor:'rgba(180,160,255,0.05)',borderColor:'rgba(180,160,255,0.4)',borderWidth:1.5,pointBackgroundColor:'rgba(180,160,255,0.4)'},
+      ]
+    },
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{color:MUTED,boxWidth:10,padding:14,font:{size:10}}}},scales:{r:{backgroundColor:'rgba(14,165,233,0.01)',grid:{color:GRID},pointLabels:{color:MUTED,font:{size:10}},ticks:{display:false},min:0,max:5}}}
+  });
+
+  // Market Growth
+  new Chart(document.getElementById('chartGrowth').getContext('2d'),{
+    type:'bar',
+    data:{
+      labels:['2022','2023','2024','2025','2026','2027','2028','2030'],
+      datasets:[
+        {label:'Global Occupational Safety Tech (USD B)',data:[88,105,128,156,192,240,300,420],backgroundColor:'rgba(14,165,233,0.6)',borderRadius:5,barPercentage:0.55},
+        {type:'line',label:'UK Fatigue Tech Adoption %',data:[null,4,7,12,20,30,40,58],borderColor:AMBER,borderWidth:2,yAxisID:'y2',tension:0.4,pointBackgroundColor:AMBER,fill:false}
+      ]
+    },
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{color:MUTED,boxWidth:10,padding:12,font:{size:10}}}},scales:{x:{grid:{color:GRID},ticks:{color:MUTED}},y:{grid:{color:GRID},ticks:{color:MUTED,callback:v=>'$'+v+'B'}},y2:{position:'right',grid:{display:false},ticks:{color:MUTED,callback:v=>v+'%'}}}}
+  });
+
+  // Performance Comparison
+  new Chart(document.getElementById('chartPerf').getContext('2d'),{
+    type:'bar',
+    data:{
+      labels:['Predictive Accuracy','Incident Forensics','Biometric Integration','Compliance Auto.','Benchmarking','Real-Time Alerts'],
+      datasets:[
+        {label:'Fatigue Intelligence Group',data:[98,95,96,97,94,96],backgroundColor:TEAL2,borderRadius:5,barPercentage:0.35},
+        {label:'Existing Safety Tools Avg',data:[5,8,3,15,5,18],backgroundColor:AMBER2,borderRadius:5,barPercentage:0.35}
+      ]
+    },
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{color:MUTED,boxWidth:10,padding:14,font:{size:10}}}},scales:{x:{grid:{color:GRID},ticks:{color:MUTED,font:{size:9}}},y:{grid:{color:GRID},ticks:{color:MUTED,callback:v=>v+' pts'}}}}
+  });
+}
+</script>
+</body>
+</html>
