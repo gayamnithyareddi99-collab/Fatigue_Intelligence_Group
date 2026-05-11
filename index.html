@@ -577,6 +577,107 @@ img{display:block;max-width:100%;}
 }
 .form-submit:hover{box-shadow:0 8px 28px rgba(14,165,233,0.45);transform:translateY(-1px);}
 
+/* ─── PROCESS & FAQ MOBILE ONLY ──────────────────────── */
+@media(max-width:768px){
+
+  /* Process page – phase blocks: 2-col → 1-col, image goes below text */
+  #page-process [style*="grid-template-columns:1fr 1fr"],
+  #page-faq [style*="grid-template-columns:1fr 1fr"]{
+    display:flex !important;
+    flex-direction:column !important;
+    gap:24px !important;
+  }
+
+  /* Reverse-order phases (image left, text right) – keep image below on mobile */
+  #page-process section > .container > div > div:first-child > div[style*="aspect-ratio"],
+  #page-process section > .container > div > div:first-child > div[style*="border-radius:16px"]{
+    order:2;
+  }
+
+  /* Phase images: full width, reasonable height */
+  #page-process div[style*="aspect-ratio:16/10"]{
+    width:100% !important;
+    aspect-ratio:16/9 !important;
+    border-radius:12px !important;
+  }
+
+  /* FAQ page – 2-col grid → 1-col stack */
+  #page-faq .container > div[style*="grid-template-columns"]{
+    display:flex !important;
+    flex-direction:column !important;
+    gap:32px !important;
+  }
+
+  /* FAQ "Still Have Questions" section – 2-col → 1-col, image below */
+  #page-faq section > .container > div[style*="grid-template-columns"]{
+    display:flex !important;
+    flex-direction:column !important;
+    gap:24px !important;
+  }
+  #page-faq section > .container > div[style*="grid-template-columns"] > div:last-child{
+    order:2;
+  }
+  #page-faq div[style*="aspect-ratio:4/3"]{
+    width:100% !important;
+    aspect-ratio:16/9 !important;
+    border-radius:12px !important;
+  }
+
+  /* FAQ bottom banner image – reduce extreme aspect ratio */
+  #page-faq div[style*="aspect-ratio:21/5"]{
+    aspect-ratio:16/7 !important;
+    border-radius:12px !important;
+  }
+
+  /* FAQ question text – slightly smaller so it wraps nicely */
+  .faq-q h4{
+    font-size:14px !important;
+    line-height:1.45 !important;
+  }
+
+  /* Process hero buttons – stack on very small screens */
+  #page-process .hero-btns{
+    flex-direction:column !important;
+    gap:10px !important;
+  }
+  #page-process .hero-btns .btn-primary,
+  #page-process .hero-btns .btn-secondary{
+    width:100% !important;
+    justify-content:center !important;
+  }
+
+  /* Risk badges wrap cleanly */
+  #page-process div[style*="display:flex;flex-wrap:wrap"],
+  #page-faq div[style*="display:flex;flex-wrap:wrap"]{
+    gap:8px !important;
+  }
+
+  /* Phase label / phase number text – adjust sizing */
+  #page-process div[style*="font-size:10px;letter-spacing:3px"]{
+    font-size:9px !important;
+    letter-spacing:2px !important;
+  }
+}
+
+@media(max-width:480px){
+  /* Phase headings tighten up */
+  #page-process h3[style*="font-size:clamp(22px"]{
+    font-size:20px !important;
+  }
+  /* FAQ section heading */
+  #page-faq .section-h2{
+    font-size:26px !important;
+  }
+  /* FAQ body text */
+  .faq-body{
+    font-size:13.5px !important;
+  }
+  /* Process phase paragraph text */
+  #page-process p[style*="font-size:15px"]{
+    font-size:14px !important;
+  }
+}
+
 /* ─── FOOTER ─────────────────────────────────────────── */
 footer{
   background:var(--bg-deep);
